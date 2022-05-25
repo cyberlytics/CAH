@@ -60,11 +60,13 @@ Use the built-in continuous integration in GitLab.
 - Jeder Teilbereich ist eingeteilt in Frontend, Middleware und Backend
 - Falls ein Teilbereich noch nicht angelegt wurde, ist man selbst dafür verantwortlich diesen anzulegen
 - Beispiel:
+```
 	\sys-src\cards_against\Projekt
 		↳Beispielordner
 			↳Frontend
 			↳Middleware
 			↳Backend
+```
 - Sobald etwas in einen Ordner hinzugefügt wurde, soll die deleteME-Datei gelöscht werden, falls vorhanden
 - Falls ein Ordner nicht gebraucht wird, soll dieser gelöscht werden
 
