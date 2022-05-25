@@ -26,11 +26,26 @@ Use the built-in continuous integration in GitLab.
 
 ***
 
+# socket.io
+- Falls kein Ordner "node_modules" im Ordner "\sys-src\Frontend" existiert, sollte dort der Befehl:
+	```
+	npm install socketio-client
+	```
+	ausgeführt werden.
+- Falls kein Ordner "node_modules" im Ordner "\sys-src\Backend" existiert, sollte dort der Befehl:
+	```
+	npm install socketio express nodemon
+	```
+	ausgeführt werden.
+
 # Git Commits:
 - Sprache: Deutsch
 - Commits sollen informativ und nicht lustig sein
 - den Commit klar formulieren
 - lieber öfter committen, als zu wenig
+- der Ordner node_modules darf nicht mitgepusht werden!
+- der Ordner .idea darf nicht mitgepusht werden!
+- vor jedem Commit nochmals überprüfen, ob nicht doch Dateien oder Ordner dabei sind, die man nicht pushen möchte
 
 # Kommentare:
 - Sprache: Deutsch
@@ -56,16 +71,16 @@ Use the built-in continuous integration in GitLab.
 
 # Ordner Struktur:
 - Jeder ist selbst für Ordnung zuständig
-- Jeder Teilbereich bekommt einen eigenen Ordner in \sys-src\cards_against\Projekt
-- Jeder Teilbereich ist eingeteilt in Frontend, Middleware und Backend
+- Jeder Teilbereich bekommt einen eigenen Ordner entweder in \sys-src\Backend oder \sys-src\Frontend (je nachdem wozu es gehört)
+- Middleware gehört zum Backend
 - Falls ein Teilbereich noch nicht angelegt wurde, ist man selbst dafür verantwortlich diesen anzulegen
 - Beispiel:
 ```
-	\sys-src\cards_against\Projekt
-		↳Beispielordner
-			↳Frontend
-			↳Middleware
-			↳Backend
+	\sys-src
+		↳Frontend
+			↳Beispielordner
+		↳Backend
+			↳Beispielordner
 ```
 - Sobald etwas in einen Ordner hinzugefügt wurde, soll die deleteME-Datei gelöscht werden, falls vorhanden
 - Falls ein Ordner nicht gebraucht wird, soll dieser gelöscht werden
