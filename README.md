@@ -47,6 +47,11 @@ Use the built-in continuous integration in GitLab.
 - der Ordner .idea darf nicht mitgepusht werden!
 - vor jedem Commit nochmals überprüfen, ob nicht doch Dateien oder Ordner dabei sind, die man nicht pushen möchte
 
+# Merge:
+- es wird nur über Merge request gemergt
+- Nur der Reviewer führt einen Merge aus
+- Man ist nie selber der Reviewer
+
 # Kommentare:
 - Sprache: Deutsch
 - Über jeder Funktion muss dieser Header angebracht und aktualisiert werden:
