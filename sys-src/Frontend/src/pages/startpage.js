@@ -9,22 +9,18 @@ function Startpage(){
     //let useParams = useParams();
 
     return (
-        <div>
-            <div>
-           <h1>Startseite ------ Wilkommen</h1> 
-           
-           </div>
-           <div>
-               <button
-                   onClick={() => {
-                       navigate("/Room");
-                   }}
-                   >
-                       Zur Lobby
-               </button>
-           </div>
-        </div>
+        <div className="main-container">
+            <div className="blackside"> 
+                <div className="Header">
+                    <h1 className="gametitle">Cards<br/> Against<br/> Humanity</h1>
+                </div>
+            </div>
+            <div className="whiteside"> 
+                <button className="navbutton" onClick={ () =>  { navigate("/Room")}}> Join </button>
+                <button className="navbutton" onClick={ () =>  { navigate("/Room")}}> Create Game </button>
 
+            </div>
+        </div>
     )
 }
 
