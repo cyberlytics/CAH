@@ -1,0 +1,43 @@
+.main-container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.middlepart{
+    background-color: lightgray;
+}
+
+.white-card-part{
+    text-align: end;
+}
+
+.blackside{
+    background-color: black;
+    width: 50%;
+    height: 100vh;
+    text-align: center;
+}
+
+.whiteside{
+    background-color: white;
+    width: 50%;
+    height: 100vh;
+    text-align: center;
+
+}
+
+.gametitle{
+    color: white;
+    font-size: 7em;
+    text-align: left;
+
+}
+
+.Header{
+    margin: 50px;
+}
+
+.navbutton{
+    
+}
