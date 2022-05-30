@@ -1,6 +1,8 @@
 import React from 'react';
 import io, { Socket } from 'socket.io-client';
 import {useNavigate, useParams} from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import {Col, Row, Container} from 'react-bootstrap'
 
 
 
@@ -9,18 +11,29 @@ function Startpage(){
     //let useParams = useParams();
 
     return (
-        <div className="main-container">
-            <div className="blackside"> 
-                <div className="Header">
-                    <h1 className="gametitle">Cards<br/> Against<br/> Humanity</h1>
+        <Container>
+        <Row className="vh-100">
+            <Col className="">
+                <div className="jumbotron d-flex h-100">
+                    <div className="text-white d-flex titlediv">
+                            <p className="gametitle">Cards<br/> Against<br/> Humanity</p>
+                    </div>
                 </div>
-            </div>
-            <div className="whiteside"> 
-                <button className="navbutton" onClick={ () =>  { navigate("/Room")}}> Join </button>
-                <button className="navbutton" onClick={ () =>  { navigate("/Room")}}> Create Game </button>
-
-            </div>
-        </div>
+            </Col>
+            <Col>
+                <div className="h-100 jumbotron2 d-flex">
+                    <div className=""> 
+                        <Row>
+                            <Button className="" variant="dark" onClick={ () =>  { navigate("/Room")}}> Join </Button>
+                        </Row>
+                        <Row>
+                            <Button className="mt-5" variant="dark" onClick={ () =>  { navigate("/Room")}}> Create Game </Button>
+                        </Row>
+                    </div>
+                </div>
+            </Col>
+        </Row>
+        </Container>
     )
 }
 
