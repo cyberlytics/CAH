@@ -11,28 +11,29 @@ function Startpage(){
     //let useParams = useParams();
 
     return (
-        <Container>
-        <Row className="vh-100">
-            <Col className="">
-                <div className="jumbotron d-flex h-100">
-                    <div className="text-white d-flex titlediv">
-                            <p className="gametitle">Cards<br/> Against<br/> Humanity</p>
-                    </div>
-                </div>
-            </Col>
-            <Col>
-                <div className="h-100 jumbotron2 d-flex">
-                    <div className=""> 
-                        <Row>
-                            <Button className="" variant="dark" onClick={ () =>  { navigate("/Room")}}> Join </Button>
+        <Container fluid className="vh-100">
+            <Row className="vh-100" xs={2}>
+                <Col className="justify-content-center flex-column d-flex h-100 blackdiv">
+                    <p className="text-center h1 text-white">Cards <br/> Against <br/> Humanity</p>
+                </Col>
+
+
+                <Col className="justify-content-center flex-column d-flex h-100 whitediv">
+                    <Col className="justify-content-center flex-column d-flex whitecard h-100">
+                        <Row className="justify-content-center">
+                            <Button className="w-auto">
+                                Join
+                            </Button>
                         </Row>
-                        <Row>
-                            <Button className="mt-5" variant="dark" onClick={ () =>  { navigate("/Room")}}> Create Game </Button>
+                        <Row className="justify-content-center">
+                            <Button className="w-auto mt-5">
+                                Create Game
+                            </Button>
                         </Row>
-                    </div>
-                </div>
-            </Col>
-        </Row>
+                    </Col>
+
+                </Col>
+            </Row>
         </Container>
     )
 }
