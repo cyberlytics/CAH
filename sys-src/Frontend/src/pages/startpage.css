@@ -32,3 +32,23 @@
     justify-content: center;
     vertical-align: middle;
 }
+
+.blackdiv{
+    background-image: url(../imgs/blackcard.png);
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+.whitediv{
+    background-image: url(../imgs/cardstack.png);
+    background-position: center;
+    background-repeat: no-repeat;
+
+}
+
+.whitecard{
+    background-image: url(../imgs/whitecard.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
