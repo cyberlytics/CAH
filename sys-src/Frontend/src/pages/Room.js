@@ -28,6 +28,17 @@ import {useNavigate, useParams} from 'react-router-dom';
       //dieser raum existiert bereits
     })
 
+    let roomsize;
+    const players = [];
+
+    //komplizierter muss noch richtig gelöst werden
+    socket.on("userJoinsLobby", (name, size) =>{
+      roomsize = size;
+      players.push(name);
+      // hier werden dem aktuellen client nur die nächst beitretenden clients angezeigt
+      console.log(`User in dem Raum ${players} und die Raumbelegung ${roomsize} von 5`)
+   })
+
 function Room() {
 
   let navigate = useNavigate();
