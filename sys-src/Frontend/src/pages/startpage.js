@@ -11,22 +11,20 @@ function Startpage(){
     //let useParams = useParams();
 
     return (
-        <Container fluid className="vh-100">
+        <Container fluid className="mainContainer vh-100">
             <Row className="vh-100" xs={2}>
-                <Col className="justify-content-center flex-column d-flex h-100 blackdiv">
-                    <p className="text-center h1 text-white">Cards <br/> Against <br/> Humanity</p>
+                <Col sm={6} className="justify-content-center flex-column d-flex h-100 blackdiv">
+                    <p className="gametitle text-white">Cards <br/> Against <br/> Humanity</p>
                 </Col>
-
-
-                <Col className="justify-content-center flex-column d-flex h-100 whitediv">
+                <Col sm={6} className="justify-content-center flex-column d-flex h-100 whitediv">
                     <Col className="justify-content-center flex-column d-flex whitecard h-100">
                         <Row className="justify-content-center">
-                            <Button className="w-auto">
+                            <Button className="joinbutton text-black text-bold w-auto" >
                                 Join
                             </Button>
                         </Row>
-                        <Row className="justify-content-center">
-                            <Button className="w-auto mt-5">
+                        <Row className=" justify-content-center">
+                            <Button className="createbutton   text-black text-bold w-auto">
                                 Create Game
                             </Button>
                         </Row>
