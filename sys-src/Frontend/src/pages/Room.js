@@ -29,14 +29,14 @@ import {useNavigate, useParams} from 'react-router-dom';
     })
 
     let roomsize;
-    const players = [];
+    let userjoined;
 
     //komplizierter muss noch richtig gelöst werden
     socket.on("userJoinsLobby", (name, size) =>{
       roomsize = size;
-      players.push(name);
-      // hier werden dem aktuellen client nur die nächst beitretenden clients angezeigt
-      console.log(`User in dem Raum ${players} und die Raumbelegung ${roomsize} von 5`)
+      userjoined = name
+      // hier werden dem aktuellen client nur die nächst beitretenden clients angezeigt und er selbst inkludiert
+      console.log(`Der User ${userjoined} trifft ein und die Raumbelegung ${roomsize} von 5`)
    })
 
 function Room() {

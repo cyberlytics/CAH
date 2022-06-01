@@ -34,7 +34,7 @@ io.on("connection", (socket) => {
                 console.log(`User with ID: ${socket.id} joined room: ${data}`)
                 socket.emit("joined")
                  //schickt allen clients im selben raum die nachricht, alle clients die nach einem gejoint werden beim vorherig gejointen client angezeigt
-                socket.to(data).emit("userJoinsLobby", name, io.sockets.adapter.rooms.get(data).size)            
+                io.in(data).emit("userJoinsLobby", name, io.sockets.adapter.rooms.get(data).size)            
             }
             else{
                 console.log('Cant join a full lobby')
@@ -47,7 +47,7 @@ io.on("connection", (socket) => {
             console.log(`raum ${data} wurde erstellt`)
             socket.join(data);
             socket.emit('joined')
-            socket.to(data).emit("userJoinsLobby", name, io.sockets.adapter.rooms.get(data).size)
+            io.in(data).emit("userJoinsLobby", name, io.sockets.adapter.rooms.get(data).size)
         }
         else{
             console.log("er existiert bereits")
