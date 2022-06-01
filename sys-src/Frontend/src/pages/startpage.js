@@ -12,11 +12,11 @@ function Startpage(){
 
     return (
         <Container fluid className="mainContainer vh-100">
-            <Row className="vh-100" xs={2}>
-                <Col sm={6} className="justify-content-center flex-column d-flex h-100 blackdiv">
+            <Row className="vh-100">
+                <Col sm={6} className="justify-content-center flex-column d-flex heightchanger blackdiv">
                     <p className="gametitle text-white">Cards <br/> Against <br/> Humanity</p>
                 </Col>
-                <Col sm={6} className="justify-content-center flex-column d-flex h-100 whitediv">
+                <Col sm={6} className="justify-content-center flex-column d-flex heightchanger whitediv">
                     <Col className="justify-content-center flex-column d-flex whitecard h-100">
                         <Row className="justify-content-center">
                             <Button className="joinbutton text-black text-bold w-auto" >
