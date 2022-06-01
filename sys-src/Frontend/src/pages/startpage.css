@@ -1,38 +1,89 @@
-.gametitle{
-    position: relative;
-    padding-left: 12%;
-    padding-bottom: 35%;    
-    font-size:8vw;
-    text-align: left;
-    line-height: 100%;
-}
 
 
+@media (max-width:576px){
+    .heightchanger {
+       height: 50vh;
+    }
 
-.blackdiv{
-    background-image: url(../imgs/blackcard.png);
-    background-position: center;
-    background-repeat: no-repeat;
+
+    .gametitle{
+        position: relative;
+        padding-left: 30%;
+        padding-bottom: 35%;    
+        font-size:8vw;
+        text-align: left;
+        line-height: 100%;
+    }
+
+
+    .blackdiv{
+        background-image: url(../imgs/blackcard.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        
+        background-size:50%;
+        
+    }
     
-    background-size:80%;
+    .whitediv{
+        background-image: url(../imgs/cardstack.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 80%;   
+    }
     
+    .whitecard{
+        background-image: url(../imgs/whitecard.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 50%;
+        
+       
+    }
 }
 
-.whitediv{
-    background-image: url(../imgs/cardstack.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 110%;   
+@media (min-width:576px){
+    .heightchanger {
+       height: 100vh;
+    }
+
+    .gametitle{
+        position: relative;
+        padding-left: 12%;
+        padding-bottom: 35%;    
+        font-size:8vw;
+        text-align: left;
+        line-height: 100%;
+    }
+
+    .blackdiv{
+        background-image: url(../imgs/blackcard.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        
+        background-size:80%;
+        
+    }
+    
+    .whitediv{
+        background-image: url(../imgs/cardstack.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 110%;   
+    }
+    
+    .whitecard{
+        background-image: url(../imgs/whitecard.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size:80%;
+        
+       
+    }
 }
 
-.whitecard{
-    background-image: url(../imgs/whitecard.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size:80%;
-    
-   
-}
+
+
 
 .mainContainer{
     background: -webkit-linear-gradient(-10deg, white 50%, black 50%);
