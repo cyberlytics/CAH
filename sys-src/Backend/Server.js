@@ -3,6 +3,13 @@ const app = express();
 const http = require('http');
 const { Server } = require("socket.io");
 
+// Contetion für MongoDB
+const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://WAEGruen:1WAEGruppeGruen!@karten.u6mqw.mongodb.net/Data', {
+    useUnifiedTopology : true,
+    useNewUrlParser : true,
+}).then(console.log('Connected to Mongo DB'))
+
 app.use(express.urlencoded({extended: true}));
 
 const server = http.createServer(app);
