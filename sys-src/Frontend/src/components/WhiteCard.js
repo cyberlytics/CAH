@@ -15,7 +15,7 @@ function WhiteCard(props){
 
     const [playerList, setPlayerList] = useState([]);
 
-    const onAddBtnClick = event => setPlayerList(playerList.concat(<p>Test</p>));
+    const onAddBtnClick = event => {         if(playerList.length < 5){             setPlayerList(playerList.concat(<p className="text-center">Test</p>));         }};
 
     if(props.Buttons != null){                  
     //Nimmt die Buttons JSON und mapd' diese. Dann wird pro JSON Argument ein Button mit den jeweiligen Werten erstellt  
