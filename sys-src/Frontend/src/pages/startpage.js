@@ -2,38 +2,33 @@ import React from 'react';
 import io, { Socket } from 'socket.io-client';
 import {useNavigate, useParams} from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import {Col, Row, Container} from 'react-bootstrap'
+import {Col, Row, Container} from 'react-bootstrap';
+import BlackCard from '../components/BlackCard.js';
+import WhiteCardStack from '../components/WhiteCardStack.js';
+import WhiteCard from '../components/WhiteCard';
+
 
 
 
 function Startpage(){
-    let navigate = useNavigate();
-    //let useParams = useParams();
+
+    // JSON object. Das Nav ergibt dabei die Seite, zu der navigiert wird, und der Text wird auf dem Button, der die Navigation ausführt angezeigt
+    let buttons = [
+            {"function": "/Room", "Text": "Join"},
+            {"function": "/Lobby", "Text": "Create Game"}
+        
+    ]
 
     return (
         <Container fluid className="mainContainer vh-100">
             <Row className="vh-100">
-                <Col sm={6} className="justify-content-center flex-column d-flex heightchanger blackdiv">
-                    <p className="gametitle text-white">Cards <br/> Against <br/> Humanity</p>
-                </Col>
-                <Col sm={6} className="justify-content-center flex-column d-flex heightchanger whitediv">
-                    <Col className="justify-content-center flex-column d-flex whitecard h-100">
-                        <Row className="justify-content-center">
-                            <Button className="joinbutton text-black text-bold w-auto" >
-                                Join
-                            </Button>
-                        </Row>
-                        <Row className=" justify-content-center">
-                            <Button className="createbutton   text-black text-bold w-auto">
-                                Create Game
-                            </Button>
-                        </Row>
-                    </Col>
-
-                </Col>
+                <BlackCard title='Cards &#32; Against &#32; Humanity'/>
+                <WhiteCardStack Buttons={buttons}/>
             </Row>
         </Container>
     )
+
+   
 }
 
 export default Startpage;
