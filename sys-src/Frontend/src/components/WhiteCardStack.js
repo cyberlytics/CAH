@@ -15,10 +15,10 @@ function WhiteCardStack(props){
     let navigate = useNavigate();
     return (
 
-    <Col sm={6} className="justify-content-center flex-column d-flex heightchanger whitediv">
+    <div className="justify-content-center flex-column d-flex heightchanger whitediv">
                         <WhiteCard Buttons={props.Buttons}/>
 
-    </Col>
+    </div>
     )
 }
 

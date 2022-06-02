@@ -3,10 +3,35 @@ import io, { Socket } from 'socket.io-client';
 import {useNavigate, useParams} from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import {Col, Row, Container} from 'react-bootstrap'
+import BlackCard from '../components/BlackCard.js';
+import WhiteCard from '../components/WhiteCard.js';
+
+
 function Lobby(){
+
+    let buttons = [
+        
+        {"Function": "add", "Content": "Hello", "Text": "Invite Player"}
+    
+]
+
     return(
-        <Container fluid className="lobbyContainer vh-100">
-            <h1>Lobby Seite</h1>
+        <Container fluid className=" vh-100">
+            <Row className="vh-100">
+            <Col>
+                <BlackCard/>
+            </Col>
+            <Col>
+                <WhiteCard Buttons={buttons}/>
+            </Col>
+            <Col>
+                <WhiteCard/>
+            </Col>
+            <Col>
+                <WhiteCard/>
+            </Col>
+            
+            </Row>
         </Container>
     )
 }

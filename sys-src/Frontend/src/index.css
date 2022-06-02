@@ -16,9 +16,3 @@ code {
   background: -webkit-linear-gradient(-10deg, white 50%, black 50%);
 }
 
-.lobbyContainer{
-  background-image: linear-gradient(to right, black, blue 400px, black 800px);
-  background-size: 800px 100%;
-  background-position: 50% 100%;
-  background-repeat: no-repeat;
-}
