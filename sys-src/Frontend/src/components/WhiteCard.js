@@ -11,17 +11,44 @@ import {Col, Row, Container} from 'react-bootstrap'
 ///////////////////////////////////////////
 function WhiteCard(props){
     let navigate = useNavigate();
-    var buttonsnum = props.Buttons;
-    var buttons = buttonsnum.map((button) =>
-    <Button key={button.function.toString()} onClick={() => {navigate(button.function);}} className="createbutton text-black text-bold">{button.Text}</Button>
-    );
+
+    const playerList = [<p>test</p>];
+    
+    
+
+    const onAddBtnClick = event => playerList.concat(<p>Test</p>);
+
+    if(props.Buttons != null){                  
+    //Nimmt die Buttons JSON und mapd' diese. Dann wird pro JSON Argument ein Button mit den jeweiligen Werten erstellt  
+        var buttons = props.Buttons.map((button) =>  
+        <Button 
+            key={button.Content.toString()} 
+            onClick={() => 
+                {
+                    var task = button.Function.toString();
+                    if(task == "navigate")
+                    {
+                        navigate(button.Content);
+                    }
+                    if(task == "add")
+                    {
+                        onAddBtnClick();
+                    }
+                }
+            } 
+            className="createbutton text-black text-bold">{button.Text}
+         </Button>);
+        
+    }
+     
+
 
     return (
 
-            <Col className="justify-content-center flex-column d-flex whitecard h-100">
+            <div className="justify-content-center flex-column d-flex whitecard h-100">
                 {buttons}
-            </Col>
-
+                
+            </div>
 
     )
 }
