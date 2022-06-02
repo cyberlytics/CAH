@@ -83,11 +83,21 @@
 }
 
 
-
-
-.mainContainer{
-    background: -webkit-linear-gradient(-10deg, white 50%, black 50%);
+.joinbutton, .createbutton{     
+    transition: transform 0.2s !important; 
+    background: none !important; 
+    border:none !important;
+    width: fit-content !important;
+    align-self: center;
+}  
+.joinbutton:hover, .createbutton:hover {
+         transform: scale(1.5); 
+}  
+.joinbutton{     
+    font-size: 5vw !important;     
+    font-weight: 400 !important; 
+}  
+.createbutton{     
+    font-size: 3vw !important; 
 }
-
-.joinbutton, .createbutton{     transition: transform 0.2s !important; background: none !important; border:none !important }  .joinbutton:hover, .createbutton:hover {     transform: scale(1.5); }  .joinbutton{     font-size: 5vw !important;     font-weight: 400 !important; }  .createbutton{     font-size: 3vw !important; }
 
