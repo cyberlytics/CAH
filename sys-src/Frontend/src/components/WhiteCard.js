@@ -3,6 +3,7 @@ import io, { Socket } from 'socket.io-client';
 import {useNavigate, useParams} from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import {Col, Row, Container} from 'react-bootstrap'
+import {useState} from 'react'
 
 
 ////////////////////////////////////////////
@@ -12,11 +13,9 @@ import {Col, Row, Container} from 'react-bootstrap'
 function WhiteCard(props){
     let navigate = useNavigate();
 
-    const playerList = [<p>test</p>];
-    
-    
+    const [playerList, setPlayerList] = useState([]);
 
-    const onAddBtnClick = event => playerList.concat(<p>Test</p>);
+    const onAddBtnClick = event => setPlayerList(playerList.concat(<p>Test</p>));
 
     if(props.Buttons != null){                  
     //Nimmt die Buttons JSON und mapd' diese. Dann wird pro JSON Argument ein Button mit den jeweiligen Werten erstellt  
@@ -46,9 +45,10 @@ function WhiteCard(props){
     return (
 
             <div className="justify-content-center flex-column d-flex whitecard h-100">
-                {buttons}
-                
+                <div className= "justify-content-center flex-column d-flex">{buttons}</div>
+                <div className="justify-content-center flex-column d-flex">{playerList}</div>
             </div>
+            
 
     )
 }
