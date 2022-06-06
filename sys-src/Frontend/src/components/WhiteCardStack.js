@@ -16,7 +16,7 @@ function WhiteCardStack(props){
     return (
 
     <div className="justify-content-center flex-column d-flex heightchanger whitediv">
-                        <WhiteCard Buttons={props.Buttons}/>
+                        <WhiteCard Socket={props.Socket} NavigateButtons={props.NavigateButtons} Inputs={props.Inputs}/>
 
     </div>
     )

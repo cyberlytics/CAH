@@ -8,16 +8,28 @@ import WhiteCardStack from '../components/WhiteCardStack.js';
 import WhiteCard from '../components/WhiteCard';
 
 
+const socket = io('http://localhost:3001')    
+    socket.on('connect', ()=>console.log(socket.id))
+    socket.on('connect_error', ()=>{
+      setTimeout(()=>socket.connect(),5000)
+    })   
+    socket.on('time', (data)=>setTime(data))
+   socket.on('disconnect',()=>setTime('server disconnected'))
 
 
 function Startpage(){
     
     // JSON object. Das Nav ergibt dabei die Seite, zu der navigiert wird, und der Text wird auf dem Button, der die Navigation ausführt angezeigt
     // {"function": "---Hier einfügen, was die function des Buttons sein soll---", "Content": "--- Hier die benötigten Variablen der Funktion einfügen---", "Text": "--- Hier den Text, der auf dem Button anzeigt werden soll einfügen---"}
-    let buttons = [
-            {"Function": "navigate", "Content": "/Room", "Text": "Join"},
-            {"Function": "navigate", "Content": "/Lobby", "Text": "Create Game"}
+    let navbuttons = [
+            {"Function": "joinRoom", "Text": "Join"},
+            {"Function": "createRoom", "Text": "Create Game"}
         
+    ]
+
+    let inputs = [
+        {"Title": "Name", "Text": "Name", "Function": "user"},
+        {"Title": "Room", "Text": "Room", "Function": "room"}
     ]
 
     return (
@@ -27,7 +39,7 @@ function Startpage(){
                 <BlackCard title='Cards &#32; Against &#32; Humanity'/>
                 </Col>
                 <Col> 
-                <WhiteCardStack Buttons={buttons}/>
+                <WhiteCardStack Socket={socket} NavigateButtons={navbuttons} Inputs={inputs}/>
                 </Col>
             </Row>
         </Container>
