@@ -1,25 +1,21 @@
-import React from 'react';
-import io, { Socket } from 'socket.io-client';
-import {useNavigate, useParams} from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
-import {Col, Row, Container} from 'react-bootstrap'
-import WhiteCard from './WhiteCard.js';
-
+import React from "react";
+import WhiteCard from "./WhiteCard.js";
 
 ////////////////////////////////////////////
 // Kurzbeschreibung: Erzeugt einen Kartenstapel aus weißen Karten mit einer geraden weißen Karte darauf,
 // auf der Buttons angezeigt werden.
-// letzte Änderung: 02.06.2022 - 15:00
+// letzte Änderung: 06.06.2022 - 18:00
 ///////////////////////////////////////////
-function WhiteCardStack(props){
-    let navigate = useNavigate();
-    return (
-
+function WhiteCardStack(props) {
+  return (
     <div className="justify-content-center flex-column d-flex heightchanger whitediv">
-                        <WhiteCard Socket={props.Socket} NavigateButtons={props.NavigateButtons} Inputs={props.Inputs}/>
-
+      <WhiteCard
+        Socket={props.Socket}
+        NavigateButtons={props.NavigateButtons}
+        Inputs={props.Inputs}
+      />
     </div>
-    )
+  );
 }
 
 export default WhiteCardStack;

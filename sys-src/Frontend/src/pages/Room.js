@@ -1,7 +1,7 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from "react";
 import { useState, setTime } from "react";
-import io from 'socket.io-client';
-import {useNavigate, useParams} from 'react-router-dom';
+import io from "socket.io-client";
+import { useNavigate, useParams } from "react-router-dom";
 
 function Room(props) {
 
@@ -47,47 +47,42 @@ function Room(props) {
 
   let navigate = useNavigate();
 
-    // problem mit react router, springt auf die seite zig mal, funktioniert aber trotzdem. feature?
-  props.Socket.on("joined", (gameobject)=>{
-    console.log(gameobject);
-      navigate("/Lobby");
-  })
 
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
 
   const joinRoom = () => {
-    
     if (username !== "" && room !== "") {
       props.Socket.emit("join_room", room, username);
     }
-  }
+  };
   const createRoom = () => {
-    
     if (username !== "" && room !== "") {
       props.Socket.emit("create_room", room, username);
     }
-  }
+  };
 
   return (
-
     <div className="App">
-      <input type="text" placeholder="Name..." onChange={(event) => {
-        setUsername(event.target.value);
-      }}
+      <input
+        type="text"
+        placeholder="Name..."
+        onChange={(event) => {
+          setUsername(event.target.value);
+        }}
       />
-      <input type="text" placeholder='Room ID' onChange={(event) => {
-        setRoom(event.target.value);
-      }} />
+      <input
+        type="text"
+        placeholder="Room ID"
+        onChange={(event) => {
+          setRoom(event.target.value);
+        }}
+      />
 
-      <button onClick={ (joinRoom) }>Join a Room
-      </button>
-      <button onClick={ (createRoom) }>Create a Room
-      </button>
-
-
+      <button onClick={joinRoom}>Join a Room</button>
+      <button onClick={createRoom}>Create a Room</button>
     </div>
-  )
+  );
 }
 
 export default Room;
