@@ -33,16 +33,6 @@ function NavigateButton(props) {
       navigate("/Lobby");
   })
 
-  const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
-
-  props.Socket.on("backendusernamechanged", (data) => {
-      setUsername(data);
-  })
-
-  props.Socket.on("backendroomnamechanged", (data) => {
-    setRoom(data);
-})
 
   return (
     <UserContext.Consumer>
@@ -53,7 +43,7 @@ function NavigateButton(props) {
           <div className="justify-content-center flex-column d-flex whitecard h-100">
             <div className="justify-content-center flex-column d-flex">
               <Button
-                disabled={userName === "" && userRoom === ""}
+                //disabled={userName === "" && userRoom === ""}
                 key={props.Function.toString()}
                 onClick={() => {
                   var task = props.Function.toString();
