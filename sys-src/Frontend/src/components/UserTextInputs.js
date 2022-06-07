@@ -19,7 +19,7 @@ function UserTextInputs(props) {
   return (
     <UserContext.Consumer>
       {(context) => {
-      const { userName, userRoom, changeUserName, changeUserRoom } = context;
+      const {changeUserName, changeUserRoom } = context;
 
       return (
         <Form.Group className="mx-auto mb-5 inputform">

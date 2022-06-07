@@ -47,7 +47,7 @@ function Startpage(props){
                 </Col>
                 <Col>
                     <UserContextProvider>
-                        <WhiteCardStack Socket={socket} NavigateButtons={navbuttons} Inputs={inputs}/>
+                        <WhiteCardStack Socket={props.Socket} NavigateButtons={navbuttons} Inputs={inputs}/>
                     </UserContextProvider>
                 </Col>
             </Row>
