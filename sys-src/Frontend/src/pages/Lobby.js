@@ -5,15 +5,40 @@ import Button from 'react-bootstrap/Button';
 import {Col, Row, Container} from 'react-bootstrap'
 import BlackCard from '../components/BlackCard.js';
 import WhiteCard from '../components/WhiteCard.js';
+import { useState } from "react";
 
 
-function Lobby(){
 
-    let buttons = [
-        
-        {"Function": "add", "Content": "Hello", "Text": "Invite Player"}
+function Lobby(props){
+
+    let roomsize;
+      let spieler = [];
     
-]
+      props.Socket.on("userLeavesLobby", (gameobject, size)=>{
+        roomsize = size;
+        console.log(gameobject)
+        spieler.forEach(element => {
+          if(!gameobject.players.includes(element.player)){
+            const index = spieler.indexOf(element.player)
+            spieler.splice(index, 1);
+          }
+        });
+        //update nachdem ein user den raum verlasesn hat
+        console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`)
+      })
+    
+      //komplizierter muss noch richtig gelöst werden
+      props.Socket.on("userJoinsLobby", (gameobject, size) =>{
+        roomsize = size;
+       
+        gameobject.players.forEach(element => {
+          if(!spieler.includes(element.player))
+          spieler.push(element.player);
+        });
+        // hier werden dem aktuellen client alle spieler und die raumkapazität gegeben
+        console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`)
+     })
+    
 
     return(
         <Container fluid className=" vh-100">
@@ -22,7 +47,7 @@ function Lobby(){
                 <BlackCard/>
             </Col>
             <Col>
-                <WhiteCard Buttons={buttons}/>
+                <WhiteCard Socket={props.Socket}/>
             </Col>
             <Col>
                 <WhiteCard/>

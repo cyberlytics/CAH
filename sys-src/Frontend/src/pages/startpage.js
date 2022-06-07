@@ -8,16 +8,24 @@ import WhiteCardStack from '../components/WhiteCardStack.js';
 import WhiteCard from '../components/WhiteCard';
 
 
-const socket = io('http://localhost:3001')    
-    socket.on('connect', ()=>console.log(socket.id))
-    socket.on('connect_error', ()=>{
-      setTimeout(()=>socket.connect(),5000)
-    })   
-    socket.on('time', (data)=>setTime(data))
-   socket.on('disconnect',()=>setTime('server disconnected'))
 
 
-function Startpage(){
+
+function Startpage(props){
+    let navigate = useNavigate();
+
+    props.Socket.on("lobby_null", ()=>{
+        //dieser raum exisitiert nicht, erstelle einen raum oder such nach einem existentem raum. 
+      })
+    
+      props.Socket.on("lobby_voll", ()=> {
+        //dieser raum ist voll!
+      })
+    
+      props.Socket.on("roomalreadyexists", () =>{
+        //dieser raum existiert bereits
+      })
+    
     
     // JSON object. Das Nav ergibt dabei die Seite, zu der navigiert wird, und der Text wird auf dem Button, der die Navigation ausführt angezeigt
     // {"function": "---Hier einfügen, was die function des Buttons sein soll---", "Content": "--- Hier die benötigten Variablen der Funktion einfügen---", "Text": "--- Hier den Text, der auf dem Button anzeigt werden soll einfügen---"}
@@ -39,7 +47,7 @@ function Startpage(){
                 <BlackCard title='Cards &#32; Against &#32; Humanity'/>
                 </Col>
                 <Col> 
-                <WhiteCardStack Socket={socket} NavigateButtons={navbuttons} Inputs={inputs}/>
+                <WhiteCardStack Socket={props.Socket} NavigateButtons={navbuttons} Inputs={inputs}/>
                 </Col>
             </Row>
         </Container>

@@ -15,33 +15,28 @@ import { useState } from "react";
 function NavigateButton(props) {
   let navigate = useNavigate();
 
-  props.Socket.on("joined", ()=>{
-    navigate("/Lobby");
+  props.Socket.on("lobby_null", ()=>{
+    //dieser raum exisitiert nicht, erstelle einen raum oder such nach einem existentem raum. 
   })
 
-  const [playerList, setPlayerList] = useState([]);
+  props.Socket.on("lobby_voll", ()=> {
+    //dieser raum ist voll!
+  })
 
-  const onAddBtnClick = (event) => {
-    if (playerList.length < 5) {
-      setPlayerList(playerList.concat(<p className="text-center">Test</p>));
-    }
-  };
+  props.Socket.on("roomalreadyexists", () =>{
+    //dieser raum existiert bereits
+  })
+
+ 
+
+    // problem mit react router, springt auf die seite zig mal, funktioniert aber trotzdem. feature?
+  props.Socket.on("joined", (gameobject)=>{
+    console.log(gameobject);
+      navigate("/Lobby");
+  })
 
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
-
-  const joinRoom = () => {
-    
-    if (username !== "" && room !== "") {
-      props.Socket.emit("join_room", room, username);
-    }
-  }
-  const createRoom = () => {
-    
-    if (username !== "" && room !== "") {
-      props.Socket.emit("create_room", room, username);
-    }
-  }
 
   props.Socket.on("backendusernamechanged", (data) => {
       setUsername(data);
@@ -55,7 +50,7 @@ function NavigateButton(props) {
     <div className="justify-content-center flex-column d-flex whitecard h-100">
             <div className="justify-content-center flex-column d-flex">
                 <Button
-                    disabled={username === "" && room === ""}
+                    
                     key={props.Function.toString()}
                     onClick={() => {
                         var task = props.Function.toString();
