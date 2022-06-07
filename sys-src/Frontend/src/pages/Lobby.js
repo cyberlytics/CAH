@@ -9,10 +9,8 @@ import WhiteCard from '../components/WhiteCard.js';
 
 function Lobby(){
 
-    let buttons = [
-        
-        {"Function": "add", "Content": "Hello", "Text": "Invite Player"}
-    
+    let buttons = [      
+        {"Title": "add", "Content": "Hello", "Function": "Invite Player"}
 ]
 
     return(
