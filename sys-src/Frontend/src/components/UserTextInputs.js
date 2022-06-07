@@ -10,7 +10,7 @@ import NavigateButton from '../components/NavigateButton';
 // Kurzbeschreibung: Erzeugt eine gerade weiße Karte, auf der eine beliebige anzahl an Buttons angezeigt werden kann.
 // letzte Änderung: 02.06.2022 - 15:00
 ///////////////////////////////////////////
-function WhiteCard(props) {
+function UserTextInputs(props) {
   let navigate = useNavigate();
 
 
@@ -37,4 +37,4 @@ function WhiteCard(props) {
   );
 }
 
-export default WhiteCard;
+export default UserTextInputs;

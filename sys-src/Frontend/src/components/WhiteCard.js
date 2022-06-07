@@ -6,6 +6,8 @@ import { Col, Row, Container, Form } from "react-bootstrap";
 import { useState } from "react";
 import NavigateButton from '../components/NavigateButton';
 import UserTextInputs from '../components/UserTextInputs';
+import TextFields from '../components/TextFields';
+
 
 
 
@@ -25,8 +27,6 @@ function WhiteCard(props) {
     }
   };
 
-  const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
 
   if (props.NavigateButtons != null) {
     //Nimmt die Buttons JSON und mapd' diese. Dann wird pro JSON Argument ein Button mit den jeweiligen Werten erstellt
@@ -43,6 +43,13 @@ function WhiteCard(props) {
     ));}
   }
 
+  if(props.TextFields != null) {
+    {var textFields = props.TextFields.map((textField) => (
+      <TextFields Text={textField.Text}>
+      </TextFields>
+    ))}
+  }
+
 
   return (
     <div className="justify-content-center flex-column d-flex whitecard h-100">
@@ -54,7 +61,7 @@ function WhiteCard(props) {
                 {navbuttons}
             </div>
             <div className="justify-content-center flex-column d-flex">
-                {playerList}
+                {textFields}
             </div>
         </Form>
     </div>
