@@ -73,22 +73,22 @@ Use the built-in continuous integration in GitLab.
 - Sprache: Deutsch
 - Über jeder Funktion muss dieser Header angebracht und aktualisiert werden:
 ```
-	////////////////////////////////////////////
-	// Kurzbeschreibung:
-	// letzte Änderung: TT.MM.JJJJ - hh:mm
-	///////////////////////////////////////////
+////////////////////////////////////////////
+// Kurzbeschreibung:
+// letzte Änderung: TT.MM.JJJJ - hh:mm
+///////////////////////////////////////////
 ```
 
 # Header:
 Über jeder Datei muss dieser Header angebracht und aktualisiert werden:
 ```
-	/////////////////////////////////////////////
-	// FileName: Filename.js
-	// Autor: Vorname Nachname - Kürzel
-	// Erstellt am: TT.MM.JJJJ - hh:mm
-	// letzte Änderung: TT.MM.JJJJ - hh:mm
-	// Beschreibung: 
-	/////////////////////////////////////////////
+/////////////////////////////////////////////
+// FileName: Filename.js
+// Autor: Vorname Nachname - Kürzel
+// Erstellt am: TT.MM.JJJJ - hh:mm
+// letzte Änderung: TT.MM.JJJJ - hh:mm
+// Beschreibung: 
+/////////////////////////////////////////////
 ```
 
 # Ordner Struktur:
