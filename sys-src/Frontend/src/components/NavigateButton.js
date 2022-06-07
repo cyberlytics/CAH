@@ -4,13 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { Col, Row, Container, Form } from "react-bootstrap";
 import { useState } from "react";
-
-
-
+import { UserContext } from "../contexts/UserContext";
 
 ////////////////////////////////////////////
-// Kurzbeschreibung: Erzeugt eine gerade weiße Karte, auf der eine beliebige anzahl an Buttons angezeigt werden kann.
-// letzte Änderung: 02.06.2022 - 15:00
+// Kurzbeschreibung: Erzeugt einen Button mit dem man auf eine neue Seite weitergeleitet wird
+// letzte Änderung: 06.06.2022 - 18:00
 ///////////////////////////////////////////
 function NavigateButton(props) {
   let navigate = useNavigate();
@@ -47,27 +45,34 @@ function NavigateButton(props) {
 })
 
   return (
-    <div className="justify-content-center flex-column d-flex whitecard h-100">
+    <UserContext.Consumer>
+      {(context) => {
+        const { userName, userRoom } = context;
+
+        return (
+          <div className="justify-content-center flex-column d-flex whitecard h-100">
             <div className="justify-content-center flex-column d-flex">
-                <Button
-                    
-                    key={props.Function.toString()}
-                    onClick={() => {
-                        var task = props.Function.toString();
-                        if(task == "joinRoom"){
-                            props.Socket.emit("join_room", room, username);
-                        }
-                        if(task == "createRoom"){
-                            props.Socket.emit("create_room", room, username);
-                        }
-                    }
-                    }
-                    className="createbutton text-black text-bold"
-                >
-                    {props.Text}
-                </Button>
+              <Button
+                disabled={userName === "" && userRoom === ""}
+                key={props.Function.toString()}
+                onClick={() => {
+                  var task = props.Function.toString();
+                  if (task == "joinRoom") {
+                    props.Socket.emit("join_room", userRoom, userName);
+                  }
+                  if (task == "createRoom") {
+                    props.Socket.emit("create_room", userRoom, userName);
+                  }
+                }}
+                className="createbutton text-black text-bold"
+              >
+                {props.Text}
+              </Button>
             </div>
-    </div>
+          </div>
+        );
+      }}
+    </UserContext.Consumer>
   );
 }
 
