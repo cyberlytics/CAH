@@ -4,7 +4,8 @@
   "description": "",
   "main": "Server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "typ": "modul",
+    "test": "jest",
     "start": "nodemon Server.js"
   },
   "author": "",
@@ -12,6 +13,12 @@
   "dependencies": {
     "express": "^4.18.1",
     "nodemon": "^2.0.16",
-    "socket.io": "^4.5.1"
+    "socket.io": "^4.5.1",
+    "socket.io-client": "^4.5.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
+    "babel-jest": "^28.1.0"
   }
 }
