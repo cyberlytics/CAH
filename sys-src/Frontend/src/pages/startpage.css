@@ -1,0 +1,106 @@
+
+
+@media (max-width:576px){
+    .heightchanger {
+       height: 50vh;
+    }
+
+
+    .gametitle{
+        position: relative;
+        padding-left: 30%;
+        padding-bottom: 35%;    
+        font-size:8vw;
+        text-align: left;
+        line-height: 100%;
+    }
+
+
+    .blackdiv{
+        background-image: url(../imgs/blackcard.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        
+        background-size:50%;
+        
+    }
+    
+    .whitediv{
+        background-image: url(../imgs/cardstack.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 80%;   
+    }
+    
+    .whitecard{
+        background-image: url(../imgs/whitecard.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 50%;
+        
+       
+    }
+}
+
+@media (min-width:576px){
+    .heightchanger {
+       height: 100vh;
+    }
+
+    .gametitle{
+        position: relative;
+        padding-left: 12%;
+        padding-bottom: 35%;    
+        font-size:8vw;
+        text-align: left;
+        line-height: 100%;
+    }
+
+    .blackdiv{
+        background-image: url(../imgs/blackcard.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        
+        background-size:80%;
+        
+    }
+    
+    .whitediv{
+        background-image: url(../imgs/cardstack.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 110%;   
+    }
+    
+    .whitecard{
+        background-image: url(../imgs/whitecard.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size:80%;
+        
+       
+    }
+}
+
+
+.joinbutton, .createbutton{     
+    transition: transform 0.2s !important; 
+    background: none !important; 
+    border:none !important;
+    width: fit-content !important;
+    align-self: center;
+}  
+.joinbutton:hover, .createbutton:hover {
+         transform: scale(1.5); 
+}  
+.joinbutton{     
+    font-size: 5vw !important;     
+    font-weight: 400 !important; 
+}  
+.createbutton{     
+    font-size: 3vw !important; 
+}
+
+.inputform{ 
+    width: fit-content;
+}
