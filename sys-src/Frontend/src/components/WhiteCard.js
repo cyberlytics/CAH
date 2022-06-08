@@ -6,17 +6,15 @@ import { Col, Row, Container, Form } from "react-bootstrap";
 import { useState } from "react";
 import NavigateButton from '../components/NavigateButton';
 import UserTextInputs from '../components/UserTextInputs';
-import TextFields from '../components/TextFields';
-
+import TextField from './TextField';
+import { UserContext } from "../contexts/UserContext";
 
 
 
 ////////////////////////////////////////////
 // Kurzbeschreibung: Erzeugt eine gerade weiße Karte, auf der eine beliebige anzahl an Componenten angezeigt werden kann.
-// letzte Änderung: 06.06.2022 - 18:00
 ///////////////////////////////////////////
 function WhiteCard(props) {
-  const [playerList, setPlayerList] = useState([]);
 
   if (props.NavigateButtons != null) {
     //Nimmt die Buttons JSON und mapd' diese. Dann wird pro JSON Argument ein Button mit den jeweiligen Werten erstellt
@@ -43,14 +41,16 @@ function WhiteCard(props) {
   }
 
   if(props.TextFields != null) {
+    console.log(props.TextFields);
     {var textFields = props.TextFields.map((textField) => (
-      <TextFields Text={textField.Text} Socket={props.Socket}>
-      </TextFields>
+      <TextField 
+          Text={textField} 
+          Socket={props.Socket}>
+      </TextField>
     ))}
   }
 
-
-  return (
+    return (
     <div className="justify-content-center flex-column d-flex whitecard h-100">
         <Form>
             <div className="justify-content-center mb-5">
@@ -62,9 +62,10 @@ function WhiteCard(props) {
             <div className="justify-content-center flex-column d-flex">
                 {textFields}
             </div>
+
         </Form>
     </div>
-  );
+);
 }
 
 export default WhiteCard;
