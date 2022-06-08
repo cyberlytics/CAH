@@ -3,15 +3,37 @@ const router = express.Router();
 const app = express();
 const http = require('http');
 const { Server } = require("socket.io");
-const Karte = require('/Datenbank/Kartenliste.js');
-
-// Contetion für MongoDB
-const mongoose = require('mongoose');
 const { assert } = require('console');
-mongoose.connect('mongodb+srv://WAEGruen:***REMOVED***@karten.u6mqw.mongodb.net/Kartenliste', {
-    useUnifiedTopology : true,
-    useNewUrlParser : true,
-}).then(console.log('Connected to Mongo DB'))
+
+
+//to import mongodb 
+var MongoClient = require("mongodb").MongoClient;
+
+var KartenArrayWeiss = [];
+var KartenArraySchwarz = [];
+
+//connect url
+var url = 'mongodb+srv://WAEGruen:***REMOVED***@karten.u6mqw.mongodb.net/Kartenliste';
+//connect url
+MongoClient.connect(url, function (err, client) {
+    var db= client.db('Kartenliste');
+    if (err) throw err;
+    else console.log("DB Contion vorhanden");
+      // find documents to 'customers' collection using find
+    db.collection("KartenWeiss").find( { } ).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        KartenArrayWeiss = result;  
+  });
+    db.collection("KartenSchwarz").find( { } ).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        KartenArraySchwarz = result;
+        client.close();  
+});
+});
+
+
 
 app.use(express.urlencoded({extended: true}));
 
@@ -46,23 +68,4 @@ io.on("connection", (socket) => {
 
 server.listen(3001 , () => {
     console.log("server running")
-});
-
-
-/////////////////
-/*
-* Funktion für das holen Weißer Karten
-* Erstellt von: Johannes Sporrer
-* Letzte Änderung: 06.06.2022 
-*/
-/////////////////////
-app.get('/all-Kards', (req, res) => {
-    Karte.find()
-    .then((result) =>{
-        res.send(result);
-        console.log(result)
-    })
-    .catch((err) =>{
-        console.log(err)
-    })
 });
