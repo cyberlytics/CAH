@@ -8,13 +8,10 @@ import NavigateButton from '../components/NavigateButton';
 import { UserContext } from "../contexts/UserContext";
 
 ////////////////////////////////////////////
-// Kurzbeschreibung: Erzeugt eine gerade weiße Karte, auf der eine beliebige anzahl an Buttons angezeigt werden kann.
+// Kurzbeschreibung: Erzeugt ein Iput-Feld, das abhängig der Function eine andere OnChange Funktion aufruft. Die Funktionen werden dabei mit dem context übergeben.
 // letzte Änderung: 07.06.2022 - 17:30
 ///////////////////////////////////////////
 function UserTextInputs(props) {
-  let navigate = useNavigate();
-
-
 
   return (
     <UserContext.Consumer>

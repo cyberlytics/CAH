@@ -6,17 +6,18 @@ import {Col, Row, Container} from 'react-bootstrap'
 import BlackCard from '../components/BlackCard.js';
 import WhiteCard from '../components/WhiteCard.js';
 import { useState } from "react";
+import UserContextProvider from '../contexts/UserContext.js';
 
 
 
 function Lobby(props){
 
     let roomsize;
-      let spieler = [];
+    let spieler = [];
     
       props.Socket.on("userLeavesLobby", (gameobject, size)=>{
         roomsize = size;
-        console.log(gameobject)
+        //console.log(gameobject)
         spieler.forEach(element => {
           if(!gameobject.players.includes(element.player)){
             const index = spieler.indexOf(element.player)
@@ -37,7 +38,8 @@ function Lobby(props){
         });
         // hier werden dem aktuellen client alle spieler und die raumkapazität gegeben
         console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`)
-     })
+      });
+
     
 
     return(
@@ -47,13 +49,19 @@ function Lobby(props){
                 <BlackCard/>
             </Col>
             <Col>
-                <WhiteCard Socket={props.Socket}/>
+                <UserContextProvider>
+                    <WhiteCard Socket={props.Socket} TextFields={spieler}/>
+                </UserContextProvider>
             </Col>
             <Col>
-                <WhiteCard/>
+            <UserContextProvider>
+                    <WhiteCard/>
+                </UserContextProvider>
             </Col>
             <Col>
-                <WhiteCard/>
+            <UserContextProvider>
+                    <WhiteCard/>
+                </UserContextProvider>
             </Col>
             
             </Row>

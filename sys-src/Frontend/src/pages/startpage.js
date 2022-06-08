@@ -9,10 +9,11 @@ import UserContextProvider from '../contexts/UserContext.js';
 
 
 
-
+////////////////////////////////////////////
+// Kurzbeschreibung: Startseite mit Blackcard und einem WhitecardStack, auf dem Navigations-Buttons und UserInputs gelegt sind.
+///////////////////////////////////////////
 function Startpage(props){
-    let navigate = useNavigate();
-
+    
     props.Socket.on("lobby_null", ()=>{
         //dieser raum exisitiert nicht, erstelle einen raum oder such nach einem existentem raum. 
       })
@@ -25,6 +26,7 @@ function Startpage(props){
         //dieser raum existiert bereits
       })
     
+      
     
     // JSON object. Das Nav ergibt dabei die Seite, zu der navigiert wird, und der Text wird auf dem Button, der die Navigation ausführt angezeigt
     // {"function": "---Hier einfügen, was die function des Buttons sein soll---", "Content": "---Hier die benötigten Variablen der Funktion einfügen---", "Text": "---Hier den Text, der auf dem Button anzeigt werden soll einfügen---"}

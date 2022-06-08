@@ -7,32 +7,11 @@ import { useState } from "react";
 import { UserContext } from "../contexts/UserContext";
 
 ////////////////////////////////////////////
-// Kurzbeschreibung: Erzeugt einen Button mit dem man auf eine neue Seite weitergeleitet wird
+// Kurzbeschreibung: Erzeugt einen Button mit dem man auf eine neue Seite weitergeleitet wird. Abhängig der Function, kann eine andere Funktion beim OkClick angewendet werden.
 // letzte Änderung: 06.06.2022 - 18:00
 ///////////////////////////////////////////
 function NavigateButton(props) {
   let navigate = useNavigate();
-
-  props.Socket.on("lobby_null", ()=>{
-    //dieser raum exisitiert nicht, erstelle einen raum oder such nach einem existentem raum. 
-  })
-
-  props.Socket.on("lobby_voll", ()=> {
-    //dieser raum ist voll!
-  })
-
-  props.Socket.on("roomalreadyexists", () =>{
-    //dieser raum existiert bereits
-  })
-
- 
-
-    // problem mit react router, springt auf die seite zig mal, funktioniert aber trotzdem. feature?
-  props.Socket.on("joined", (gameobject)=>{
-    console.log(gameobject);
-      navigate("/Lobby");
-  })
-
 
   return (
     <UserContext.Consumer>
@@ -49,9 +28,11 @@ function NavigateButton(props) {
                   var task = props.Function.toString();
                   if (task == "joinRoom") {
                     props.Socket.emit("join_room", userRoom, userName);
+                    navigate("/Lobby");
                   }
                   if (task == "createRoom") {
                     props.Socket.emit("create_room", userRoom, userName);
+                    navigate("/Lobby");
                   }
                 }}
                 className="createbutton text-black text-bold"

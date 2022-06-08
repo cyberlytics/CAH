@@ -4,20 +4,23 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { Col, Row, Container, Form } from "react-bootstrap";
 import { useState } from "react";
-import NavigateButton from '../components/NavigateButton';
+import NavigateButton from './NavigateButton';
+import { UserContext } from "../contexts/UserContext";
+
+
 
 ////////////////////////////////////////////
 // Kurzbeschreibung: Erzeugt eine gerade weiße Karte, auf der eine beliebige anzahl an Buttons angezeigt werden kann.
 // letzte Änderung: 02.06.2022 - 15:00
 ///////////////////////////////////////////
-function TextFields(props) {
-  let navigate = useNavigate();
-
+function TextField(props) {
 
 
   return (
-    <p className="mx-auto">{props.socket}</p>
+<div>
+      <p className="mx-auto">{props.Text}</p>
+</div>
   );
 }
 
-export default TextFields;
+export default TextField;
