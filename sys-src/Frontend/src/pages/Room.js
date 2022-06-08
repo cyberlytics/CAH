@@ -29,14 +29,31 @@ import {useNavigate, useParams} from 'react-router-dom';
     })
 
     let roomsize;
-    let userjoined;
+    let spieler = [];
+
+    socket.on("userLeavesLobby", (gameobject, size)=>{
+      roomsize = size;
+      console.log(gameobject)
+      spieler.forEach(element => {
+        if(!gameobject.players.includes(element.player)){
+          const index = spieler.indexOf(element.player)
+          spieler.splice(index, 1);
+        }
+      });
+      //update nachdem ein user den raum verlasesn hat
+      console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`)
+    })
 
     //komplizierter muss noch richtig gelöst werden
-    socket.on("userJoinsLobby", (name, size) =>{
+    socket.on("userJoinsLobby", (gameobject, size) =>{
       roomsize = size;
-      userjoined = name
-      // hier werden dem aktuellen client nur die nächst beitretenden clients angezeigt und er selbst inkludiert
-      console.log(`Der User ${userjoined} trifft ein und die Raumbelegung ${roomsize} von 5`)
+     
+      gameobject.players.forEach(element => {
+        if(!spieler.includes(element.player))
+        spieler.push(element.player);
+      });
+      // hier werden dem aktuellen client alle spieler und die raumkapazität gegeben
+      console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`)
    })
 
 function Room() {
@@ -44,7 +61,8 @@ function Room() {
   let navigate = useNavigate();
 
     // problem mit react router, springt auf die seite zig mal, funktioniert aber trotzdem. feature?
-  socket.on("joined", ()=>{
+  socket.on("joined", (gameobject)=>{
+    console.log(gameobject);
       navigate("/Lobby");
   })
 
