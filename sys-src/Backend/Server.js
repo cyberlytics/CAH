@@ -12,6 +12,10 @@ var MongoClient = require("mongodb").MongoClient;
 var KartenArrayWeiss = [];
 var KartenArraySchwarz = [];
 
+var varNumB = 0;
+var varNumW = 0;
+
+
 //connect url
 var url = 'mongodb+srv://WAEGruen:1WAEGruppeGruen!@karten.u6mqw.mongodb.net/Kartenliste';
 //connect url
@@ -22,17 +26,20 @@ MongoClient.connect(url, function (err, client) {
       // find documents to 'customers' collection using find
     db.collection("KartenWeiss").find( { } ).toArray(function(err, result) {
         if (err) throw err;
-        console.log(result);
+        console.log("Weiße Karten geholt");
         KartenArrayWeiss = result;  
   });
     db.collection("KartenSchwarz").find( { } ).toArray(function(err, result) {
         if (err) throw err;
-        console.log(result);
+        console.log("Scharzw Karten geholt");
         KartenArraySchwarz = result;
         client.close();  
-});
+  });
 });
 
+
+var lenB = KartenArraySchwarz.length;
+var lenW = KartenArrayWeiss.length;
 
 
 app.use(express.urlencoded({extended: true}));
@@ -93,6 +100,25 @@ io.on("connection", (socket) => {
             socket.emit('roomalreadyexists')
         }
     })
+
+    socket.on("send_black_cards", () =>{
+        b_card = KartenArraySchwarz[varNumB];
+        socket.emit(b_card);
+        varNumB += 1;
+        if(varNumB >= lenB){
+            varNumB = 0;
+        }
+    })
+
+    socket.on("send_white_cards", () =>{
+        w_card = KartenArrayWeiss[varNumW];
+        socket.emit(w_card);
+        varNumW += 1;
+        if(varNumW >= lenW){
+            varNumW = 0;
+        }
+    })
+
     socket.on("disconnect", () => {
         clientNo--;
         console.log(`User Anzahl: ${clientNo}`);
