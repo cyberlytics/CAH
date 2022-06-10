@@ -28,12 +28,14 @@ MongoClient.connect(url, function (err, client) {
         if (err) throw err;
         console.log("Weiße Karten geholt");
         KartenArrayWeiss = result;  
+        console.log(KartenArrayWeiss[1]);
   });
     db.collection("KartenSchwarz").find( { } ).toArray(function(err, result) {
         if (err) throw err;
         console.log("Scharzw Karten geholt");
         KartenArraySchwarz = result;
-        client.close();  
+        console.log(KartenArraySchwarz[1]);
+        client.close();
   });
 });
 
@@ -101,7 +103,7 @@ io.on("connection", (socket) => {
         }
     })
 
-    socket.on("send_black_cards", () =>{
+    socket.on("send_black_card", () =>{
         b_card = KartenArraySchwarz[varNumB];
         socket.emit(b_card);
         varNumB += 1;
@@ -110,7 +112,7 @@ io.on("connection", (socket) => {
         }
     })
 
-    socket.on("send_white_cards", () =>{
+    socket.on("send_white_card", () =>{
         w_card = KartenArrayWeiss[varNumW];
         socket.emit(w_card);
         varNumW += 1;
