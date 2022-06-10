@@ -12,6 +12,10 @@ var MongoClient = require("mongodb").MongoClient;
 var KartenArrayWeiss = [];
 var KartenArraySchwarz = [];
 
+const gamefunctions = require("./game/gamefunctions");
+
+
+
 var varNumB = 0;
 var varNumW = 0;
 
@@ -58,6 +62,8 @@ let clientNo = 0;
 
 //gamearray
 let lobbyfunctions = require('./game/lobbyfunctions.js')
+
+
 
 //socket logik
 io.on("connection", (socket) => {
