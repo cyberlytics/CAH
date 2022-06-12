@@ -26,7 +26,7 @@ function Lobby(props) {
   });
 
   useEffect(() => {
-    if (!spieler.includes(spielerUpdater) && spielerUpdater !== "") {
+    if (!spieler.includes(spielerUpdater)) {
       console.log("useEffect element: ", spielerUpdater);
       console.log("testoutput: ", spieler);
       setSpieler((spieler) => [...spieler, spielerUpdater]);
