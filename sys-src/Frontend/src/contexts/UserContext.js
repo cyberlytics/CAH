@@ -16,8 +16,9 @@ export const UserContext = createContext();
 class UserContextProvider extends Component {
 
     state = {
-        userName: "test",
-        userRoom: "test",
+        userName: "",
+        userRoom: "",
+        navPossible: false,
     }
     changeUserName = (data) => {
         console.log("ich war im Context");
