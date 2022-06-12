@@ -11,41 +11,48 @@ import UserContextProvider from "../contexts/UserContext.js";
 function Lobby(props) {
   const [roomsize, setRoomsize] = useState(0);
   const [spieler, setSpieler] = useState([]);
-  const [spielerUpdater, setSpielerUpdater] = useState("");
+  const [spielerJoinObject, setSpielerJoinObject] = useState([]);
+  const [spielerLeaveObject, setSpielerLeaveObject] = useState([]);
 
   props.Socket.on("userLeavesLobby", (gameobject, size) => {
     setRoomsize(size);
-    //console.log(gameobject)
-    setSpieler(gameobject.players);
-    console.log(spieler);
+    setSpielerLeaveObject(gameobject.players);
 
     //update nachdem ein user den raum verlasesn hat
-    console.debug(
-      `Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`
-    );
+    console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`);
   });
 
-  useEffect(() => {
-    if (!spieler.includes(spielerUpdater) && spielerUpdater !== "") {
-      console.log("useEffect element: ", spielerUpdater);
-      console.log("testoutput: ", spieler);
-      setSpieler((spieler) => [...spieler, spielerUpdater]);
-    }
-  }, [spielerUpdater]);
 
   props.Socket.on("userJoinsLobby", (gameobject, size) => {
     setRoomsize(size);
-    gameobject.players.forEach((element) => {
-      console.log("element: ", element.player);
-      setSpielerUpdater(element.player);
-      console.log("spielerUpdater: ", spielerUpdater);
-    });
+    setSpielerJoinObject(gameobject.players);
 
     // hier werden dem aktuellen client alle spieler und die raumkapazität gegeben
-    console.debug(
-      `Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`
-    );
+    console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`);
   });
+
+  // fügt neuen Spieler in Liste hinzu
+  useEffect(() => {
+    console.log("useEffect: ", spielerJoinObject);
+
+    for(let i = 0; i < spielerJoinObject.length; i++){
+      if (!spieler.includes(spielerJoinObject[i].player)) {
+        setSpieler((spieler) => [...spieler, spielerJoinObject[i].player]);
+      }
+    }
+  }, [spielerJoinObject]);
+
+  // löscht Spieler aus Liste
+  useEffect(() => {
+    console.log("useEffect: ", spielerLeaveObject);
+
+    for(let i = 0; i < spieler.length; i++){
+      if (!spielerLeaveObject.includes(spieler[i])) {
+        const index = spieler.indexOf(spielerLeaveObject[i].player);
+        setSpieler(spieler.splice(index, 1));
+      }
+    }
+  }, [spielerLeaveObject]);
 
   return (
     <Container fluid className=" vh-100">
