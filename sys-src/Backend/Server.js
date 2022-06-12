@@ -1,7 +1,39 @@
 const express = require('express');
+const router = express.Router();
 const app = express();
 const http = require('http');
 const { Server } = require("socket.io");
+const { assert } = require('console');
+
+
+//to import mongodb 
+var MongoClient = require("mongodb").MongoClient;
+
+var KartenArrayWeiss = [];
+var KartenArraySchwarz = [];
+
+//connect url
+var url = 'mongodb+srv://WAEGruen:***REMOVED***@karten.u6mqw.mongodb.net/Kartenliste';
+//connect url
+MongoClient.connect(url, function (err, client) {
+    var db= client.db('Kartenliste');
+    if (err) throw err;
+    else console.log("DB Contion vorhanden");
+      // find documents to 'customers' collection using find
+    db.collection("KartenWeiss").find( { } ).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        KartenArrayWeiss = result;  
+  });
+    db.collection("KartenSchwarz").find( { } ).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        KartenArraySchwarz = result;
+        client.close();  
+});
+});
+
+
 
 app.use(express.urlencoded({extended: true}));
 
@@ -49,7 +81,6 @@ io.on("connection", (socket) => {
     })
     socket.on("create_room", (data, name) =>{
         if(io.sockets.adapter.rooms.get(data) == null){
-            console.log(`UserName is: ${name}`)
             console.log(`raum ${data} wurde erstellt`)
             socket.join(data);
             let gameobject = lobbyfunctions.addGame(name, socket.id, data);

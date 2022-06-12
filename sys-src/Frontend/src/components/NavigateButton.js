@@ -27,14 +27,25 @@ function NavigateButton(props) {
                 onClick={() => {
                   var task = props.Function.toString();
                   if (task == "joinRoom") {
-                    props.Socket.emit("join_room", userRoom, userName);
-                    navigate("/Lobby");
+                    if(userName !== "" && userRoom !== "")
+                    {
+                      props.Socket.emit("join_room", userRoom, userName);
+                      props.Socket.on("userJoinsLobby", () => {
+                        navigate("/Lobby");
+                    })
+                    }
                   }
                   if (task == "createRoom") {
-                    props.Socket.emit("create_room", userRoom, userName);
-                    navigate("/Lobby");
+                    if(userName !== "" && userRoom !== "")
+                    {
+                      props.Socket.emit("create_room", userRoom, userName);
+                      props.Socket.on("userJoinsLobby", () => {
+                          navigate("/Lobby");
+                      })
+                      }
+                    }
                   }
-                }}
+                }
                 className="createbutton text-black text-bold"
               >
                 {props.Text}
