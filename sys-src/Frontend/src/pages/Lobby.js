@@ -13,31 +13,29 @@ import UserContextProvider from '../contexts/UserContext.js';
 function Lobby(props){
 
     let roomsize;
-    let spieler = [];
+    const [spieler, setSpieler] = useState([]);
     
       props.Socket.on("userLeavesLobby", (gameobject, size)=>{
         roomsize = size;
         //console.log(gameobject)
-        spieler.forEach(element => {
-          if(!gameobject.players.includes(element.player)){
-            const index = spieler.indexOf(element.player)
-            spieler.splice(index, 1);
-          }
-        });
+        setSpieler(gameobject.players);
+        console.log(spieler);
+
         //update nachdem ein user den raum verlasesn hat
-        console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`)
+        console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`);
       })
     
-      //komplizierter muss noch richtig gelöst werden
       props.Socket.on("userJoinsLobby", (gameobject, size) =>{
         roomsize = size;
-       
         gameobject.players.forEach(element => {
-          if(!spieler.includes(element.player))
-          spieler.push(element.player);
+          if(!spieler.includes(element.player)){
+            setSpieler( spieler => [...spieler, element.player]);
+          }
+          //spieler.push(element.player);
         });
+
         // hier werden dem aktuellen client alle spieler und die raumkapazität gegeben
-        console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`)
+        console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`);
       });
 
     

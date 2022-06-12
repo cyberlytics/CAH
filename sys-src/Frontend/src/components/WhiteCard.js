@@ -44,7 +44,7 @@ function WhiteCard(props) {
     console.log(props.TextFields);
     {var textFields = props.TextFields.map((textField) => (
       <TextField 
-          Text={textField} 
+          Text={textField}
           Socket={props.Socket}>
       </TextField>
     ))}
