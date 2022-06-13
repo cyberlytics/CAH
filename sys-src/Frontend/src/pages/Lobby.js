@@ -11,48 +11,33 @@ import UserContextProvider from "../contexts/UserContext.js";
 function Lobby(props) {
   const [roomsize, setRoomsize] = useState(0);
   const [spieler, setSpieler] = useState([]);
-  const [spielerJoinObject, setSpielerJoinObject] = useState([]);
-  const [spielerLeaveObject, setSpielerLeaveObject] = useState([]);
+  const [spielerObject, setSpielerObject] = useState([]);
 
-  props.Socket.on("userLeavesLobby", (gameobject, size) => {
+
+
+  props.Socket.on("updateLobby", (gameobject, size) => {
+    console.log("userJoinsLobby got called");
     setRoomsize(size);
-    setSpielerLeaveObject(gameobject.players);
-
-    //update nachdem ein user den raum verlasesn hat
-    console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`);
-  });
-
-
-  props.Socket.on("userJoinsLobby", (gameobject, size) => {
-    setRoomsize(size);
-    setSpielerJoinObject(gameobject.players);
+    setSpielerObject(gameobject.players);
+    console.log("userJoinsLobby: ", gameobject.players);
+    console.log("userJoinsLobbyObject: ", spielerObject);
 
     // hier werden dem aktuellen client alle spieler und die raumkapazität gegeben
     console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`);
   });
 
-  // fügt neuen Spieler in Liste hinzu
+  // updated die Spielerliste
   useEffect(() => {
-    console.log("useEffect: ", spielerJoinObject);
+    console.log("useEffect: ", spielerObject);
+    setSpieler([]);
 
-    for(let i = 0; i < spielerJoinObject.length; i++){
-      if (!spieler.includes(spielerJoinObject[i].player)) {
-        setSpieler((spieler) => [...spieler, spielerJoinObject[i].player]);
+    for(let i = 0; i < spielerObject.length; i++){
+      if (!spieler.includes(spielerObject[i].player)) {
+        setSpieler((spieler) => [...spieler, spielerObject[i].player]);
       }
     }
-  }, [spielerJoinObject]);
+  }, [spielerObject]);
 
-  // löscht Spieler aus Liste
-  useEffect(() => {
-    console.log("useEffect: ", spielerLeaveObject);
-
-    for(let i = 0; i < spieler.length; i++){
-      if (!spielerLeaveObject.includes(spieler[i])) {
-        const index = spieler.indexOf(spielerLeaveObject[i].player);
-        setSpieler(spieler.splice(index, 1));
-      }
-    }
-  }, [spielerLeaveObject]);
 
   return (
     <Container fluid className=" vh-100">
@@ -61,19 +46,13 @@ function Lobby(props) {
           <BlackCard />
         </Col>
         <Col>
-          <UserContextProvider>
             <WhiteCard Socket={props.Socket} TextFields={spieler} />
-          </UserContextProvider>
         </Col>
         <Col>
-          <UserContextProvider>
             <WhiteCard />
-          </UserContextProvider>
         </Col>
         <Col>
-          <UserContextProvider>
             <WhiteCard />
-          </UserContextProvider>
         </Col>
       </Row>
     </Container>
