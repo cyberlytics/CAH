@@ -44,6 +44,10 @@ function NavigateButton(props) {
                       })
                       }
                     }
+                  if (task == "startGame") {
+                    console.log("currRoom = " + userRoom)
+                    props.Socket.emit("start_game", userRoom, userName);
+                  }
                   }
                 }
                 className="createbutton text-black text-bold"
