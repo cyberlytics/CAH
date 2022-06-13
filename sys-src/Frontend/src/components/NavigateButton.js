@@ -30,7 +30,7 @@ function NavigateButton(props) {
                     if(userName !== "" && userRoom !== "")
                     {
                       props.Socket.emit("join_room", userRoom, userName);
-                      props.Socket.on("userJoinsLobby", () => {
+                      props.Socket.on("updateLobby", () => {
                         navigate("/Lobby");
                     })
                     }
@@ -39,7 +39,7 @@ function NavigateButton(props) {
                     if(userName !== "" && userRoom !== "")
                     {
                       props.Socket.emit("create_room", userRoom, userName);
-                      props.Socket.on("userJoinsLobby", () => {
+                      props.Socket.on("updateLobby", () => {
                           navigate("/Lobby");
                       })
                       }
