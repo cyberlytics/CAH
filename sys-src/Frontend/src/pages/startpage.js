@@ -68,9 +68,7 @@ function Startpage(props){
                     <BlackCard title='Cards &#32; Against &#32; Humanity'/>
                 </Col>
                 <Col>
-                    <UserContextProvider>
                         <WhiteCardStack Socket={props.Socket} NavigateButtons={navbuttons} Inputs={inputs}/>
-                    </UserContextProvider>
                 </Col>
             </Row>
         </Container>

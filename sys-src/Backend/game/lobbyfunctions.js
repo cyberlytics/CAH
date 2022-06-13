@@ -2,22 +2,24 @@
 
 let games = [{}]
 
-exports.addGame = function (username, socketID, roomname) {
+exports.addGame = function (username, socketID, roomname, isCreator) {
     let game = {
         id: roomname,
         players: [{
             player: username,
             socket: socketID,
+            creator: isCreator,
         }],
     }
     games[game.id] = game
     return game;
 };
 
-exports.joinGame = function joinGame(gameID, username, socketID) {
+exports.joinGame = function joinGame(gameID, username, socketID, isCreator) {
     let player = {
         player: username,
         socket: socketID,
+        creator: isCreator,
     }
     games[gameID].players.push(player);
     return games[gameID];
@@ -49,4 +51,8 @@ exports.leaveGame = function leaveGame(socketID) {
         return undefined;
     }
     return games[index2];
+}
+
+exports.getGame = function getGame(gameID){
+    return games[gameID];
 }
