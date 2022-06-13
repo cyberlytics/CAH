@@ -15,11 +15,6 @@ var KartenArraySchwarz = [];
 const gamefunctions = require("./game/gamefunctions");
 
 
-
-var varNumB = 0;
-var varNumW = 0;
-
-
 //connect url
 var url = 'mongodb+srv://WAEGruen:***REMOVED***@karten.u6mqw.mongodb.net/Kartenliste';
 //connect url
@@ -42,10 +37,6 @@ MongoClient.connect(url, function (err, client) {
         client.close();
   });
 });
-
-
-var lenB = KartenArraySchwarz.length;
-var lenW = KartenArrayWeiss.length;
 
 
 app.use(express.urlencoded({extended: true}));
@@ -110,21 +101,18 @@ io.on("connection", (socket) => {
     })
 
     socket.on("send_black_card", () =>{
-        b_card = KartenArraySchwarz[varNumB];
+        b_card = gamefunctions.giveBlackCard(KartenArraySchwarz);
         socket.emit(b_card);
-        varNumB += 1;
-        if(varNumB >= lenB){
-            varNumB = 0;
-        }
     })
 
     socket.on("send_white_card", () =>{
-        w_card = KartenArrayWeiss[varNumW];
+        w_card = gamefunctions.giveBlackCard(KartenArrayWeiss);
         socket.emit(w_card);
-        varNumW += 1;
-        if(varNumW >= lenW){
-            varNumW = 0;
-        }
+    })
+
+    socket.on("send_white_card", () =>{
+        s_card = gamefunctions.giveWhitheCardStart(KartenArrayWeiss);
+        socket.emit(s_card);
     })
 
     socket.on("disconnect", () => {
