@@ -12,6 +12,9 @@ var MongoClient = require("mongodb").MongoClient;
 var KartenArrayWeiss = [];
 var KartenArraySchwarz = [];
 
+const gamefunctions = require("./game/gamefunctions");
+
+
 //connect url
 var url = 'mongodb+srv://WAEGruen:1WAEGruppeGruen!@karten.u6mqw.mongodb.net/Kartenliste';
 //connect url
@@ -22,17 +25,18 @@ MongoClient.connect(url, function (err, client) {
       // find documents to 'customers' collection using find
     db.collection("KartenWeiss").find( { } ).toArray(function(err, result) {
         if (err) throw err;
-        console.log(result);
+        console.log("Weiße Karten geholt");
         KartenArrayWeiss = result;  
+        console.log(KartenArrayWeiss[1]);
   });
     db.collection("KartenSchwarz").find( { } ).toArray(function(err, result) {
         if (err) throw err;
-        console.log(result);
+        console.log("Scharzw Karten geholt");
         KartenArraySchwarz = result;
-        client.close();  
+        console.log(KartenArraySchwarz[1]);
+        client.close();
+  });
 });
-});
-
 
 
 app.use(express.urlencoded({extended: true}));
@@ -49,6 +53,8 @@ let clientNo = 0;
 
 //gamearray
 let lobbyfunctions = require('./game/lobbyfunctions.js')
+
+
 
 //socket logik
 io.on("connection", (socket) => {
@@ -93,6 +99,22 @@ io.on("connection", (socket) => {
             socket.emit('roomalreadyexists')
         }
     })
+
+    socket.on("send_black_card", () =>{
+        b_card = gamefunctions.giveBlackCard(KartenArraySchwarz);
+        socket.emit(b_card);
+    })
+
+    socket.on("send_white_card", () =>{
+        w_card = gamefunctions.giveBlackCard(KartenArrayWeiss);
+        socket.emit(w_card);
+    })
+
+    socket.on("send_white_card", () =>{
+        s_card = gamefunctions.giveWhitheCardStart(KartenArrayWeiss);
+        socket.emit(s_card);
+    })
+
     socket.on("disconnect", () => {
         clientNo--;
         console.log(`User Anzahl: ${clientNo}`);
