@@ -18,7 +18,9 @@ function TextField(props) {
 
   return (
 <div>
-      <p className="mx-auto">{props.Text}</p>
+  <Form.Group className="mx-auto">
+    <p> {props.Text} </p>
+  </Form.Group>
 </div>
   );
 }

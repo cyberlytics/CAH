@@ -31,9 +31,8 @@ exports.leaveGame = function leaveGame(socketID) {
     if(games.length == 0){
         return undefined;
     }
-
         games.forEach(element => {
-            if(element.players != undefined){               
+            if(element.players != undefined){             
                 element.players.forEach(element2 => {
                     if(element2.socket.includes(socketID)){
                         const index = element.players.indexOf(element2);
