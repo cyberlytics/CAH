@@ -101,7 +101,8 @@ io.on("connection", (socket) => {
         console.log(gameleaveobject)
         if(gameleaveobject != undefined){
             if(io.sockets.adapter.rooms.get(gameleaveobject.id)){
-                io.in(gameleaveobject.id).emit("userLeavesLobby", gameleaveobject, io.sockets.adapter.rooms.get(gameleaveobject.id).size) 
+                
+                io.in(gameleaveobject.id).emit("updateLobby", gameleaveobject, io.sockets.adapter.rooms.get(gameleaveobject.id).size) 
             }
             else{
                 console.log("er war der letzte der gegangen ist, keiner muss benachrichtigt werden")

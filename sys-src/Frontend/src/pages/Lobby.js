@@ -8,9 +8,12 @@ import WhiteCard from '../components/WhiteCard.js';
 import { useState, useEffect } from "react";
 import UserContextProvider from '../contexts/UserContext.js';
 
+function Lobby(props) {
+  const [roomsize, setRoomsize] = useState(0);
+  const [spieler, setSpieler] = useState([]);
+  const [spielerObject, setSpielerObject] = useState([]);
 
 
-function Lobby(props){
 
     
     let navigate = useNavigate();
