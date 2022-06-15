@@ -17,10 +17,10 @@ function Lobby(props){
     const [gamestarted, started] = useState(false);
     const [iscreator, creator] = useState(false);
     const [counter, setCounter] = useState(5);
-    const [tcounter, settCounter] = useState("");
 
 
     let roomsize;
+    // hier creator prop einfügen in spieler
     let spieler = [];
     let navbuttons = [
       {"Function": "startGame", "Text": "Start Game"},
@@ -41,7 +41,6 @@ function Lobby(props){
     
       props.Socket.on("userLeavesLobby", (gameobject, size)=>{
         roomsize = size;
-        //console.log(gameobject)
         spieler.forEach(element => {
           if(!gameobject.players.includes(element.player)){
             const index = spieler.indexOf(element.player)
@@ -52,7 +51,7 @@ function Lobby(props){
         console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`)
       })
 
-      props.Socket.on("creatorJoinsLobby", (gameobject, size) =>{
+      /*props.Socket.on("creatorJoinsLobby", (gameobject, size) =>{
         roomsize = size;
         gameobject.players.forEach(element => {
           if(!spieler.includes(element.player)){
@@ -61,11 +60,15 @@ function Lobby(props){
         });
         // hier werden dem aktuellen client alle spieler und die raumkapazität gegeben
         console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`)
-      });
+      });*/
 
+      var aufrufecounter = 0;
     
       //komplizierter muss noch richtig gelöst werden
       props.Socket.on("userJoinsLobby", (gameobject, size) =>{
+        aufrufecounter++;
+        console.log(aufrufecounter);
+        console.debug("Debug test");
         roomsize = size;
        
         gameobject.players.forEach(element => {
@@ -73,6 +76,12 @@ function Lobby(props){
             spieler.push(element.player);
           }
         });
+        var creatorr = gameobject.players.find(player => player.creator)
+        console.log(creatorr);
+        if(creatorr.socket == props.Socket.id){
+          console.log("creator")
+          creator(true);
+        }
         // hier werden dem aktuellen client alle spieler und die raumkapazität gegeben
         console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`)
       });
@@ -101,11 +110,12 @@ function Lobby(props){
             <Col>
                     <WhiteCard/>
             </Col>
-            <Col>
+            {iscreator && (<Col>
                     <WhiteCard Socket={props.Socket} NavigateButtons={navbuttons}/>
                     
                 
-            </Col>
+            </Col>)}
+            
             
             
             </Row>

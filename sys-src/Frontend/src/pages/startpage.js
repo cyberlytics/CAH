@@ -45,7 +45,7 @@ function Startpage(props){
 
     let inputs = [
         {"Title": "Name", "Text": "Name", "Function": "user"},
-        {"Title": "Room", "Text": "Room", "Function": "room"}
+        {"Title": "Room", "Text": "Room (numbers only)", "Function": "room"}
     ]
 
     return (
