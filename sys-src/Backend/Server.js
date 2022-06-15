@@ -85,7 +85,7 @@ io.on("connection", (socket) => {
             let gameobject = lobbyfunctions.addGame(name, socket.id, data, true);
             socket.emit('joined', gameobject)
             console.log(gameobject)
-            io.in(data).emit("creatorJoinsLobby", gameobject, io.sockets.adapter.rooms.get(data).size)
+            //io.in(data).emit("creatorJoinsLobby", gameobject, io.sockets.adapter.rooms.get(data).size)
             io.in(data).emit("userJoinsLobby", gameobject, io.sockets.adapter.rooms.get(data).size)
         }
         else{
