@@ -101,17 +101,17 @@ io.on("connection", (socket) => {
     })
 
     socket.on("send_black_card", () => {
-        b_card = gamefunctions.giveBlackCard(KartenArraySchwarz);
+        b_card = gamefunctions.giveBlackCard(KartenArraySchwarz, listBlack);
         socket.emit(b_card);
     })
 
     socket.on("send_white_card", () => {
-        w_card = gamefunctions.giveBlackCard(KartenArrayWeiss);
+        w_card = gamefunctions.giveBlackCard(KartenArrayWeiss, listWhite);
         socket.emit(w_card);
     })
 
     socket.on("send_white_card", () => {
-        s_card = gamefunctions.giveWhitheCardStart(KartenArrayWeiss);
+        s_card = gamefunctions.giveWhitheCardStart(KartenArrayWeiss, listWhite);
         socket.emit(s_card);
     })
 
