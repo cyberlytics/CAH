@@ -42,7 +42,7 @@ exports.giveWitheCard = function(whiteCards, listWhite){
 }
 
 
-exports.giveWhitheCardStart = function(whiteCards){
+exports.giveWhitheCardStart = function(whiteCards, listWhite){
 
     Start_Cards = []
 
@@ -57,6 +57,8 @@ exports.giveWhitheCardStart = function(whiteCards){
         
     }
 
-    return Start_Cards;
+    listWhite.push(Start_Cards)
+
+    return Start_Cards, listWhite;
     
 }
