@@ -9,6 +9,8 @@ exports.addGame = function (username, socketID, roomname) {
             player: username,
             socket: socketID,
         }],
+        whiteCards: [],
+        blackCards: [],
     }
     games.push(game);
     return game;
