@@ -41,7 +41,6 @@ function WhiteCard(props) {
   }
 
   if(props.TextFields != null) {
-    console.log(props.TextFields);
     {var textFields = props.TextFields.map((textField) => (
       <TextField 
           Text={textField}
