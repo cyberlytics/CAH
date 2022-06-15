@@ -34,7 +34,6 @@ MongoClient.connect(url, function (err, client) {
 });
 
 
-
 app.use(express.urlencoded({extended: true}));
 
 const server = http.createServer(app);
@@ -67,11 +66,11 @@ io.on("connection", (socket) => {
                 socket.join(data);
                 console.log(`lobbysize ${io.sockets.adapter.rooms.get(data).size}`)
                 console.log(`User with ID: ${socket.id} joined room: ${data}`)
-                let gamejoinobject = lobbyfunctions.joinGame(data, name, socket.id)
+                let gamejoinobject = lobbyfunctions.joinGame(data, name, socket.id, false)
                 socket.emit("joined", gamejoinobject)
                 console.log(gamejoinobject)
-                 //schickt allen clients im selben raum die nachricht, alle clients die nach einem gejoint werden beim vorherig gejointen client angezeigt
-                io.in(data).emit("updateLobby", gamejoinobject, io.sockets.adapter.rooms.get(data).size)            
+                //schickt allen clients im selben raum die nachricht, alle clients die nach einem gejoint werden beim vorherig gejointen client angezeigt
+                io.in(data).emit("userJoinsLobby", gamejoinobject, io.sockets.adapter.rooms.get(data).size)            
             }
             else{
                 console.log('Cant join a full lobby')
@@ -83,10 +82,11 @@ io.on("connection", (socket) => {
         if(io.sockets.adapter.rooms.get(data) == null){
             console.log(`raum ${data} wurde erstellt`)
             socket.join(data);
-            let gameobject = lobbyfunctions.addGame(name, socket.id, data);
+            let gameobject = lobbyfunctions.addGame(name, socket.id, data, true);
             socket.emit('joined', gameobject)
-            console.log("gameobject: ", gameobject)
-            io.in(data).emit("updateLobby", gameobject, io.sockets.adapter.rooms.get(data).size)
+            console.log(gameobject)
+            //io.in(data).emit("creatorJoinsLobby", gameobject, io.sockets.adapter.rooms.get(data).size)
+            io.in(data).emit("userJoinsLobby", gameobject, io.sockets.adapter.rooms.get(data).size)
         }
         else{
             console.log("er existiert bereits")
@@ -113,6 +113,15 @@ io.on("connection", (socket) => {
             console.log("er war in keinem raum")
         }
 
+    })
+
+    socket.on("start_game", (data, name) =>{
+        let gamestartobject = lobbyfunctions.getGame(data)
+        if(name == gamestartobject.players[0].player){
+            io.in(data).emit("creatorStartsGame")
+            console.log(gamestartobject)
+            console.log("Game start")
+        }
     })
 });
 
