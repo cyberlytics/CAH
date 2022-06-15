@@ -4,27 +4,41 @@ var S_Card = 0;
 
 
 
-exports.giveBlackCard = function(blackCards){
+exports.giveBlackCard = function(blackCards, listBlack){
 
     Card = blackCards[B_Card];
     B_Card = B_Card + 1;
-    if(B_Card > blackCards.length){
-        B_Card = 0;
+
+    while(listBlack.includes(Card)){
+        Card = blackCards[B_Card];
+        B_Card = B_Card + 1;
+        if(B_Card > blackCards.length){
+            B_Card = 0;
+        }
     }
 
-    return Card;
+    listBlack.push(Card);
+
+    return Card, listBlack;
 }
 
 
-exports.giveWitheCard = function(whiteCards){
+exports.giveWitheCard = function(whiteCards, listWhite){
 
-    Card = whiteCards[W_Card];
+    Card = blackCards[B_Card];
     W_Card = W_Card + 1;
-    if(W_Card > whiteCards.length){
-        W_Card = 0;
+
+    while(listWhite.includes(Card)){
+        Card = whiteCards[W_Card];
+        W_Card = W_Card + 1;
+        if(W_Card > whiteCards.length){
+            W_Card = 0;
+        }
     }
 
-    return Card;
+    listWhite.push(Card);
+
+    return Card, listWhite;
 }
 
 
