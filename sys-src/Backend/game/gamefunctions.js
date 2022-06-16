@@ -40,25 +40,3 @@ exports.giveWitheCard = function(whiteCards, listWhite){
 
     return Card, listWhite;
 }
-
-
-exports.giveWhitheCardStart = function(whiteCards, listWhite){
-
-    Start_Cards = []
-
-    for (S_Card; S_Card < 10; S_Card++) {
-        const element = whiteCards[S_Card];
-
-        Start_Cards.push(element)
-
-        if(S_Card > whiteCards.length){
-            S_Card = 0;
-        }
-        
-    }
-
-    listWhite.push(Start_Cards)
-
-    return Start_Cards, listWhite;
-    
-}

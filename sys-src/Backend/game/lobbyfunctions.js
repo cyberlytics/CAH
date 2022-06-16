@@ -8,6 +8,8 @@ exports.addGame = function (username, socketID, roomname) {
         players: [{
             player: username,
             socket: socketID,
+            hand: [],
+            //points: 0,
         }],
         whiteCards: [],
         blackCards: [],
@@ -20,6 +22,8 @@ exports.joinGame = function joinGame(gameID, username, socketID) {
     let player = {
         player: username,
         socket: socketID,
+        hand: [],
+        //points: 0,
     }
     games.find(element => element.id == gameID).players.push(player);
     return games.find(element => element.id == gameID);

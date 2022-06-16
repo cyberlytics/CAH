@@ -40,6 +40,13 @@ function Lobby(props){
         console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`)
       });
 
+      
+
+      props.Socket.on('pushed_black_card', (blackCard) =>{
+        gameobject.BlackCard = blackCard[0];
+        gameobject.Lobby.blackCards = blackCard[1];
+      });
+
     
 
     return(

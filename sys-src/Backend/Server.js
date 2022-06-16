@@ -27,13 +27,13 @@ MongoClient.connect(url, function (err, client) {
         if (err) throw err;
         console.log("Weiße Karten geholt");
         KartenArrayWeiss = result;
-        console.log(KartenArrayWeiss[1]);
+        //console.log(KartenArrayWeiss[1]);
     });
     db.collection("KartenSchwarz").find({}).toArray(function (err, result) {
         if (err) throw err;
         console.log("Scharzw Karten geholt");
         KartenArraySchwarz = result;
-        console.log(KartenArraySchwarz[1]);
+        //console.log(KartenArraySchwarz[1]);
         client.close();
     });
 });
@@ -100,20 +100,18 @@ io.on("connection", (socket) => {
         }
     })
 
-    socket.on("send_black_card", () => {
+    socket.on("send_black_card", (listBlack) => {
         b_card = gamefunctions.giveBlackCard(KartenArraySchwarz, listBlack);
-        socket.emit(b_card);
+        console.log(b_card);
+        socket.emit('pushed_black_card', b_card);
     })
 
-    socket.on("send_white_card", () => {
+    socket.on("send_white_card", (listWhite) => {
         w_card = gamefunctions.giveBlackCard(KartenArrayWeiss, listWhite);
-        socket.emit(w_card);
+        console.log(w_card);
+        socket.emit('pushed_white_card', w_card);
     })
 
-    socket.on("send_white_card", () => {
-        s_card = gamefunctions.giveWhitheCardStart(KartenArrayWeiss, listWhite);
-        socket.emit(s_card);
-    })
 
     socket.on("disconnect", () => {
         clientNo--;
@@ -141,6 +139,7 @@ io.on("connection", (socket) => {
 
     })
 });
+
 
 server.listen(3001, () => {
     console.log("server running")
