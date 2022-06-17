@@ -45,7 +45,7 @@ function Startpage(props){
 
     let inputs = [
         {"Title": "Name", "Text": "Name", "Function": "user"},
-        {"Title": "Room", "Text": "Room", "Function": "room"}
+        {"Title": "Room", "Text": "Room (numbers only)", "Function": "room"}
     ]
 
     return (
@@ -68,9 +68,7 @@ function Startpage(props){
                     <BlackCard title='Cards &#32; Against &#32; Humanity'/>
                 </Col>
                 <Col>
-                    <UserContextProvider>
                         <WhiteCardStack Socket={props.Socket} NavigateButtons={navbuttons} Inputs={inputs}/>
-                    </UserContextProvider>
                 </Col>
             </Row>
         </Container>
