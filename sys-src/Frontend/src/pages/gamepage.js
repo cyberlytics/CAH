@@ -11,17 +11,15 @@ function GamePage(){
 
     return (
         <Container fluid className="vh-100">
-            <Row className='vh-100'>
+            <Row className='centerField'>
                 <Col><BlackCard/></Col>
                 <Col></Col>
                 <Col></Col>
                 <Col></Col>
-                <Col className = "playerlist">
-                    
-                    
-                </Col>
+                <Col></Col>
             </Row>
-          <Row className ="vh-100">
+
+          <Row className ="playerHand">
                 <Col><WhiteCard/></Col>
                 <Col><WhiteCard/></Col>
                 <Col><WhiteCard/></Col>
