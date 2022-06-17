@@ -8,7 +8,7 @@ import {Col, Row, Container} from 'react-bootstrap'
 function BlackCard(props){
 
     return (
-        <div className="justify-content-center flex-column d-flex heightchanger blackdiv">
+        <div className="justify-content-center flex-column d-flex heightchanger blackdiv h-100">
                     <p className="gametitle text-white">{props.title}</p>
         </div>
     )

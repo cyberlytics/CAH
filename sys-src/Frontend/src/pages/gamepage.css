@@ -1,7 +1,13 @@
-.player{
-    height: 100%;
+.centerField{
+    background: white;
+    height: 50%;
 }
 
-p{
-    vertical-align: middle;
+.playerHand{
+    background: black;
+    height: 50%;
+}
+
+.blackcard{
+   height: 100%;
 }
