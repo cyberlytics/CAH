@@ -40,6 +40,12 @@ function Lobby(props){
         console.debug(`Die User ${spieler} treffen ein und die Raumbelegung ${roomsize} von 5`)
       });
 
+      props.Socket.emit('send_black_card', () => {
+        console.log("Test");
+      });
+
+      props.Socket.emit('send_white_card');
+
       
 
       props.Socket.on('pushed_black_card', (blackCard) =>{
