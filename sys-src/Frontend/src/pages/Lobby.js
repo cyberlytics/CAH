@@ -41,10 +41,14 @@ function Lobby(props){
       });
 
       props.Socket.emit('send_black_card', () => {
-        console.log("Test");
+        console.log("TestBalack");
       });
 
-      props.Socket.emit('send_white_card');
+      props.Socket.emit('send_white_card', () => {
+        console.log("TestWhite");
+      });
+
+      props.Socket.on()
 
       
 

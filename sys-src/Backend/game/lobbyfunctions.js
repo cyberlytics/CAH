@@ -13,6 +13,7 @@ exports.addGame = function (username, socketID, roomname) {
         }],
         whiteCards: [],
         blackCards: [],
+        currBlackCard: "",
     }
     games.push(game);
     return game;
