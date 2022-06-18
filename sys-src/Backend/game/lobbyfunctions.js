@@ -63,3 +63,8 @@ exports.leaveGame = function leaveGame(socketID) {
     console.log("spieler ist in keiner der räume")
     return undefined;
 }
+
+// gibt einfach das Game mit der entsprechenden ID wieder
+exports.getGame = function getGame(gameID){
+    return games.find(element => element.id == gameID);
+}

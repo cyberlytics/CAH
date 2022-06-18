@@ -18,7 +18,9 @@ function TextField(props) {
 
   return (
 <div>
-      <p className="mx-auto">{props.Text}</p>
+  <center>
+    <h3> {props.Text} </h3>
+  </center>
 </div>
   );
 }
