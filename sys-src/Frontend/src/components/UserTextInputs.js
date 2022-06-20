@@ -34,16 +34,11 @@ function UserTextInputs(props) {
 
           }
           { task == "room" && 
-          <Form.Control type="number"  placeholder={props.Text} onChange={(event) => {
+          <Form.Control type="text"  placeholder={props.Text} onChange={(event) => {
         
               changeUserRoom(event.target.value);
           
             }}   
-            onKeyPress={(event) => {
-              if (!/[0-9]/.test(event.key)) {
-                event.preventDefault();
-              }
-            }}
           />
 
           }
