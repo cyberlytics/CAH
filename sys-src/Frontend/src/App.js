@@ -6,6 +6,7 @@ import Startpage from './pages/startpage';
 import Lobby from './pages/Lobby';
 import {Link, BrowserRouter as Router, Route, Routes} from "react-router-dom";
 
+
 function App() {
   return (
   <Router>
