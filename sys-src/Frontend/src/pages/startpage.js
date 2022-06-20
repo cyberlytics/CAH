@@ -1,10 +1,11 @@
 import React from 'react';
 import io, { Socket } from 'socket.io-client';
 import {useNavigate, useParams} from 'react-router-dom';
-import {Col, Row, Container} from 'react-bootstrap';
+import {Col, Row, Container, Alert} from 'react-bootstrap';
 import BlackCard from '../components/BlackCard.js';
 import WhiteCardStack from '../components/WhiteCardStack.js';
 import UserContextProvider from '../contexts/UserContext.js';
+import { useState } from "react";
 
 
 
@@ -13,17 +14,23 @@ import UserContextProvider from '../contexts/UserContext.js';
 // Kurzbeschreibung: Startseite mit Blackcard und einem WhitecardStack, auf dem Navigations-Buttons und UserInputs gelegt sind.
 ///////////////////////////////////////////
 function Startpage(props){
-    
+    const [show, setShow] = useState(false);
+    const [alertType, setAlertType] = useState("");
+
+
     props.Socket.on("lobby_null", ()=>{
-        //dieser raum exisitiert nicht, erstelle einen raum oder such nach einem existentem raum. 
+        setAlertType("The Lobby you tried to join does not exist!");
+        setShow(true);
       })
     
       props.Socket.on("lobby_voll", ()=> {
-        //dieser raum ist voll!
+        setAlertType("The Lobby you tried to join is already full!");
+        setShow(true);
       })
     
       props.Socket.on("roomalreadyexists", () =>{
-        //dieser raum existiert bereits
+        setAlertType("The Lobby you tried to create already exists!");        
+        setShow(true);
       })
     
       
@@ -43,14 +50,25 @@ function Startpage(props){
 
     return (
         <Container fluid className="mainContainer vh-100">
+            <div className="alterdiv">
+            {show
+                ? <Alert className="joinalert" variant="danger" onClose={() => setShow(false)} dismissible>
+                <Alert.Heading>
+                    Error!
+                </Alert.Heading>
+                <p>
+                  {alertType}
+                </p>
+              </Alert>
+                :<div></div>
+            }
+            </div>
             <Row className="vh-100">
                 <Col>
                     <BlackCard title='Cards &#32; Against &#32; Humanity'/>
                 </Col>
                 <Col>
-                    <UserContextProvider>
                         <WhiteCardStack Socket={props.Socket} NavigateButtons={navbuttons} Inputs={inputs}/>
-                    </UserContextProvider>
                 </Col>
             </Row>
         </Container>
@@ -58,6 +76,24 @@ function Startpage(props){
 
    
 }
+
+function AlertDismissibleExample() {
+    const [show, setShow] = useState(true);
+  
+    if (show) {
+      return (
+        <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+          <p>
+            Change this and that and try again. Duis mollis, est non commodo
+            luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+            Cras mattis consectetur purus sit amet fermentum.
+          </p>
+        </Alert>
+      );
+    }
+    return <Button onClick={() => setShow(true)}>Show Alert</Button>;
+  }
 
 export default Startpage;
 

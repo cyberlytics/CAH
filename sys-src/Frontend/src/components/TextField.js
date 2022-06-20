@@ -18,9 +18,9 @@ function TextField(props) {
 
   return (
 <div>
-  <Form.Group className="mx-auto">
-    <p> {props.Text} </p>
-  </Form.Group>
+  <center>
+    <h3> {props.Text} </h3>
+  </center>
 </div>
   );
 }
