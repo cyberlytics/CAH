@@ -12,8 +12,6 @@ var MongoClient = require("mongodb").MongoClient;
 var KartenArrayWeiss = [];
 var KartenArraySchwarz = [];
 
-const gamefunctions = require("./game/gamefunctions");
-
 
 //connect url
 var url = 'mongodb+srv://WAEGruen:1WAEGruppeGruen!@karten.u6mqw.mongodb.net/Kartenliste';
