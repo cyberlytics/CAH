@@ -13,6 +13,14 @@ import { UserContext } from "../contexts/UserContext";
 function NavigateButton(props) {
   let navigate = useNavigate();
 
+  function navLobby(){
+    navigate('/Lobby');
+  }
+
+  function navGame(){
+    navigate('/Game');
+  }
+
   return (
     <UserContext.Consumer>
       {(context) => {
@@ -27,14 +35,33 @@ function NavigateButton(props) {
                 onClick={() => {
                   var task = props.Function.toString();
                   if (task == "joinRoom") {
-                    props.Socket.emit("join_room", userRoom, userName);
-                    navigate("/Lobby");
+                    if(userName !== "" && userRoom !== "")
+                    {
+                      props.Socket.emit("join_room", userRoom, userName);
+                      props.Socket.on("joined", () => {
+                        navLobby();
+                      })
+                      
+                    }
                   }
                   if (task == "createRoom") {
-                    props.Socket.emit("create_room", userRoom, userName);
-                    navigate("/Lobby");
+                    if(userName !== "" && userRoom !== "")
+                    {
+                      props.Socket.emit("create_room", userRoom, userName);
+                      props.Socket.on("joined", () => {
+                        navLobby();
+                      })
+                    }
+                    }
+                  if (task == "startGame") {
+                    props.Socket.emit("start_game", userRoom, userName);
+                    // props.Socket.emit('send_black_card', userRoom);
+                    // props.Socket.emit('send_white_card', userRoom);
+                    props.Socket.emit("new_round", userRoom);
+                    navGame();
                   }
-                }}
+                  }
+                }
                 className="createbutton text-black text-bold"
               >
                 {props.Text}

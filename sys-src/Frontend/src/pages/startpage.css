@@ -104,3 +104,18 @@
 .inputform{ 
     width: fit-content;
 }
+
+.joinalert{
+    position: absolute !important;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin-top: 2vh;
+}
+
+.startcounter{
+    position: absolute !important;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin-top: 15vh;
+    font-size: 5vw !important;
+}
