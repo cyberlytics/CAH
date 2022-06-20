@@ -22,8 +22,43 @@ exports.addGame = function (username, socketID, roomname, ArrayBlackCards, Array
 exports.blackCard = function (roomID) {
 
     return games.find(element => element.id == roomID).blackCards.shift();
-    
+
 };
+
+exports.whiteCard = function (roomID) {
+
+    game = games.find(element => element.id == roomID)
+
+    game.players.forEach(element => {
+        while(element.hand.length < 5){
+            element.hand.push(game.whiteCards.shift());
+        }
+    });
+
+
+    return game;
+
+};
+
+exports.newRound = function (roomID) {
+
+    // findet das richtige Spiel
+    game = games.find(element => element.id == roomID);
+
+    // nimmt die nächste Schwarze Karte vom Stapel
+    game.currBlackCard = game.blackCards.shift();
+
+    // Füllt die Hände aller Spieler mit 5 weißen Karten
+    game.players.forEach(element => {
+        while(element.hand.length < 5){
+            element.hand.push(game.whiteCards.shift());
+        }
+    });
+
+
+    return game;
+
+}
 
 exports.joinGame = function joinGame(gameID, username, socketID) {
     let player = {
