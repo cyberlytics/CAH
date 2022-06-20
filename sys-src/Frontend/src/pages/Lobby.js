@@ -51,6 +51,12 @@ function Lobby(props) {
     started(true);
   });
 
+
+  // Karten empfangen
+  props.Socket.on('pushed_black_card', b_card =>{
+    console.log(b_card);
+  });
+
   return (
     <Container fluid className=" vh-100">
       {gamestarted && (
