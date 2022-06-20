@@ -2,7 +2,7 @@
 
 let games = []
 
-exports.addGame = function (username, socketID, roomname) {
+exports.addGame = function (username, socketID, roomname, ArrayBlackCards, ArrayWhiteCards) {
     let game = {
         id: roomname,
         players: [{
@@ -11,12 +11,18 @@ exports.addGame = function (username, socketID, roomname) {
             hand: [],
             //points: 0,
         }],
-        whiteCards: [],
-        blackCards: [],
+        whiteCards: ArrayWhiteCards,
+        blackCards: ArrayBlackCards,
         currBlackCard: "",
     }
     games.push(game);
     return game;
+};
+
+exports.blackCard = function (roomID) {
+
+    return games.find(element => element.id == roomID).blackCards.shift();
+    
 };
 
 exports.joinGame = function joinGame(gameID, username, socketID) {

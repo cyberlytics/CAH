@@ -89,10 +89,10 @@ io.on("connection", (socket) => {
         if (io.sockets.adapter.rooms.get(data) == null) {
             console.log(`raum ${data} wurde erstellt`)
             socket.join(data);
-            let gameobject = lobbyfunctions.addGame(name, socket.id, data, true);
+            let gameobject = lobbyfunctions.addGame(name, socket.id, data, KartenArraySchwarz, KartenArrayWeiss);
             socket.emit('joined', gameobject)
-            console.log(gameobject)
-            //io.in(data).emit("creatorJoinsLobby", gameobject, io.sockets.adapter.rooms.get(data).size)
+            // console.log(gameobject)
+            // io.in(data).emit("creatorJoinsLobby", gameobject, io.sockets.adapter.rooms.get(data).size)
             io.in(data).emit("updateLobby", gameobject, io.sockets.adapter.rooms.get(data).size)
         }
         else {
@@ -101,10 +101,13 @@ io.on("connection", (socket) => {
         }
     })
 
-    socket.on("send_black_card", (listBlack) => {
-        b_card = gamefunctions.giveBlackCard(KartenArraySchwarz, listBlack);
-        console.log(b_card);
-        socket.emit('pushed_black_card', b_card);
+    socket.on("send_black_card", (room) => {
+        console.log('pushed_black_card', room);
+        // b_card = gamefunctions.giveBlackCard(KartenArraySchwarz, room);
+
+        temp = lobbyfunctions.blackCard(room);
+        console.log('return', temp);
+        //socket.emit('pushed_black_card', b_card);
     })
 
     socket.on("send_white_card", (listWhite) => {

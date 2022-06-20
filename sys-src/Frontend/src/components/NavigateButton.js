@@ -51,6 +51,7 @@ function NavigateButton(props) {
                     }
                   if (task == "startGame") {
                     props.Socket.emit("start_game", userRoom, userName);
+                    props.Socket.emit('send_black_card', userRoom);
                   }
                   }
                 }
