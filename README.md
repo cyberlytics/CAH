@@ -29,31 +29,14 @@ Use the built-in continuous integration in GitLab.
 # socket.io
 - Falls kein Ordner "node_modules" im Ordner "\sys-src\Frontend" existiert, sollte dort der Befehl:
 	```
-	npm install socket.io-client
+	npm install socketio-client
 	```
 	ausgeführt werden.
 - Falls kein Ordner "node_modules" im Ordner "\sys-src\Backend" existiert, sollte dort der Befehl:
 	```
-	npm install socket.io express nodemon
+	npm install socketio express nodemon
 	```
 	ausgeführt werden.
-
-- Admin Panel:
-	- Webseite: https://admin.socket.io/#/
-	- Doku: https://www.npmjs.com/package/@socket.io/admin-ui
-	- Server URL:
-		```
-		http://localhost:3001/admin
-		```
-	- Benutername: 
-		```
-		admin
-		```
-	- Passwort:
-		```
-		@;!7Uz-FkC`*rhVe8AbUZu~2i-B^X>jE
-		```
-	- WebSocket only setzen
 
 # Git Commits:
 - Sprache: Deutsch
@@ -73,22 +56,22 @@ Use the built-in continuous integration in GitLab.
 - Sprache: Deutsch
 - Über jeder Funktion muss dieser Header angebracht und aktualisiert werden:
 ```
-////////////////////////////////////////////
-// Kurzbeschreibung:
-// letzte Änderung: TT.MM.JJJJ - hh:mm
-///////////////////////////////////////////
+	////////////////////////////////////////////
+	// Kurzbeschreibung:
+	// letzte Änderung: TT.MM.JJJJ - hh:mm
+	///////////////////////////////////////////
 ```
 
 # Header:
 Über jeder Datei muss dieser Header angebracht und aktualisiert werden:
 ```
-/////////////////////////////////////////////
-// FileName: Filename.js
-// Autor: Vorname Nachname - Kürzel
-// Erstellt am: TT.MM.JJJJ - hh:mm
-// letzte Änderung: TT.MM.JJJJ - hh:mm
-// Beschreibung: 
-/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	// FileName: Filename.js
+	// Autor: Vorname Nachname - Kürzel
+	// Erstellt am: TT.MM.JJJJ - hh:mm
+	// letzte Änderung: TT.MM.JJJJ - hh:mm
+	// Beschreibung: 
+	/////////////////////////////////////////////
 ```
 
 # Ordner Struktur:
