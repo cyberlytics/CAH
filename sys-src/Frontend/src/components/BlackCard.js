@@ -10,7 +10,8 @@ function BlackCard(props){
     return (
         <div className="justify-content-center flex-column d-flex heightchanger blackdiv h-100">
                     <p className="gametitle text-white">{props.title}</p>
-            
+                    {//TODO: Ändere Size für BlackCard Inhalt für das GameField
+                    }
         </div>
     )
 }
