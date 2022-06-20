@@ -1,6 +1,6 @@
 import React from "react";
 import io, { Socket } from "socket.io-client";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { Col, Row, Container } from "react-bootstrap";
 import BlackCard from "../components/BlackCard.js";
@@ -51,10 +51,8 @@ function Lobby(props) {
     started(true);
   });
 
-
-  // Karten empfangen
-  props.Socket.on('pushed_black_card', b_card =>{
-    console.log(b_card);
+  props.Socket.on("LobbyWurdeEntfernt", () => {
+    navigate("/");
   });
 
   return (
