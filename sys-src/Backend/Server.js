@@ -101,9 +101,12 @@ io.on("connection", (socket) => {
 
     socket.on('new_round', (room) =>{
 
+        io.in(room).emit("switch_to_game");
+
         temp = lobbyfunctions.newRound(room);
 
         socket.emit('push_new_round', temp);
+
 
     })
 

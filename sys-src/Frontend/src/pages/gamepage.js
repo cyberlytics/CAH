@@ -12,9 +12,21 @@ import {useState} from "react";
 function GamePage(props){
 
 const [blackCard, setBlackCard] = useState([]);
+const [playerHand, setPlayerHand] = useState([]);
+
 props.Socket.on("push_new_round", (gameObject) =>{
     setBlackCard(gameObject.currBlackCard);
     console.log(blackCard);
+    console.log(gameObject);
+    console.log(gameObject.players[0].socket);
+    console.log(props.Socket.id);
+    gameObject.players.forEach(element=>{
+        if(element.socket == props.Socket.id) {
+            setPlayerHand(element.hand);
+            console.log("ich war hier");
+        }
+    });
+    console.log(playerHand);
 });
 
 
@@ -29,11 +41,11 @@ props.Socket.on("push_new_round", (gameObject) =>{
             </Row>
 
           <Row className ="playerHand">
-                <Col><WhiteCard/></Col>
-                <Col><WhiteCard/></Col>
-                <Col><WhiteCard/></Col>
-                <Col><WhiteCard/></Col>
-                <Col><WhiteCard/></Col>
+                <Col><WhiteCard Cards={playerHand[0]}/></Col>
+                <Col><WhiteCard Cards={playerHand[1]}/></Col>
+                <Col><WhiteCard Cards={playerHand[2]}/></Col>
+                <Col><WhiteCard Cards={playerHand[3]}/></Col>
+                <Col><WhiteCard Cards={playerHand[4]}/></Col>
           </Row>
           
         </Container>
