@@ -36,15 +36,15 @@ exports.leaveGame = function leaveGame(socketID) {
                 if (element2.socket.includes(socketID)) {
                     const index = element.players.indexOf(element2);
                     if (index == 0) {
-                        console.log("creator verlässt raum")
+                        console.log("creator verlässt Raum")
                         copyelement = structuredClone(element);
                         games.splice(games.indexOf(element), 1)
-                        // game wird aus dem komplettem array gelöscht wenn creator den raum verlässt
+                        // game wird aus dem kompletten array gelöscht wenn creator den raum verlässt
                         return copyelement;
                     }
                     else {
                         // ansonsten wird nur der player aus dem array players gelöscht
-                        console.log("anderer spieler verlässt raum")
+                        console.log("anderer Spieler verlässt Raum")
                         element.players.splice(index, 1)
                         return element;
                     }
@@ -53,6 +53,6 @@ exports.leaveGame = function leaveGame(socketID) {
         }
 
     };
-    console.log("spieler ist in keiner der räume")
+    console.log("Spieler ist in keinem der Räume")
     return undefined;
 }
