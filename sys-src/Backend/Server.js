@@ -75,7 +75,7 @@ io.on("connection", (socket) => {
                 console.log(`User with ID: ${socket.id} joined room: ${data}`)
                 let gamejoinobject = lobbyfunctions.joinGame(data, name, socket.id, false)
                 socket.emit("joined", gamejoinobject)
-                console.log(gamejoinobject)
+                // console.log(gamejoinobject)
                 //schickt allen clients im selben raum die nachricht, alle clients die nach einem gejoint werden beim vorherig gejointen client angezeigt
                 io.in(data).emit("updateLobby", gamejoinobject, io.sockets.adapter.rooms.get(data).size)            
             }
@@ -101,19 +101,29 @@ io.on("connection", (socket) => {
         }
     })
 
-    socket.on("send_black_card", (room) => {
-        console.log('pushed_black_card', room);
-        // b_card = gamefunctions.giveBlackCard(KartenArraySchwarz, room);
+    socket.on('new_round', (room) =>{
 
-        temp = lobbyfunctions.blackCard(room);
-        console.log('return', temp);
-        //socket.emit('pushed_black_card', b_card);
+        temp = lobbyfunctions.newRound(room);
+
+        socket.emit('push_new_round', temp);
+
     })
 
-    socket.on("send_white_card", (listWhite) => {
-        w_card = gamefunctions.giveBlackCard(KartenArrayWeiss, listWhite);
-        console.log(w_card);
-        socket.emit('pushed_white_card', w_card);
+    socket.on("send_black_card", (room) => {
+
+        temp = lobbyfunctions.blackCard(room);
+        socket.emit('push_black_card', temp);
+
+    })
+
+    socket.on("send_white_card", (room) => {
+
+
+        temp = lobbyfunctions.whiteCard(room);
+
+        socket.emit('push_white_card', temp);
+
+
     })
 
 
