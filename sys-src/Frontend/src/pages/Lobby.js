@@ -1,6 +1,6 @@
 import React from "react";
 import io, { Socket } from "socket.io-client";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { Col, Row, Container } from "react-bootstrap";
 import BlackCard from "../components/BlackCard.js";
@@ -49,6 +49,10 @@ function Lobby(props) {
   // setzt started true, und startet damit den timer, der dann den view zum game wechselt
   props.Socket.on("creatorStartsGame", () => {
     started(true);
+  });
+
+  props.Socket.on("LobbyWurdeEntfernt", () => {
+    navigate("/");
   });
 
   return (
