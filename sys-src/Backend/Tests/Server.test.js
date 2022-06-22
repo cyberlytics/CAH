@@ -164,10 +164,11 @@ describe("Cards Against, Server logic", () => {
         expect(lobby.joinGame(1,'random',3)).toBeDefined();
     })
     test("test leave Game",()=>{
-        lobby.addGame('random',3,1);
+        const socketId=3;
+        lobby.addGame('random',socketId,1);
         //gameid=raumid
-        lobby.joinGame(1,'random',3);
-        expect(lobby.leaveGame(3)).not.toBeDefined();
+        lobby.joinGame(1,'random',socketId);
+        expect(lobby.leaveGame(socketId)).not.toBeDefined();
     })
     test("test Add Game",()=>{
         expect(lobby.addGame('random',3,1)).toBeDefined();
