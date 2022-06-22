@@ -145,6 +145,7 @@ io.on("connection", (socket) => {
                 io.in(gameleaveobject.id).emit("updateLobby", gameleaveobject, io.sockets.adapter.rooms.get(gameleaveobject.id).size) 
                 io.in(gameleaveobject.id).emit("userLeavesLobby", gameleaveobject, io.sockets.adapter.rooms.get(gameleaveobject.id).size)
             }
+
         }
         else {
             console.log(gameleaveobject)
