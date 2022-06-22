@@ -2,22 +2,70 @@
 
 let games = []
 
-exports.addGame = function (username, socketID, roomname) {
+exports.addGame = function (username, socketID, roomname, ArrayBlackCards, ArrayWhiteCards) {
     let game = {
         id: roomname,
         players: [{
             player: username,
             socket: socketID,
+            hand: [],
+            //points: 0,
         }],
+        whiteCards: ArrayWhiteCards,
+        blackCards: ArrayBlackCards,
+        currBlackCard: "",
     }
     games.push(game);
     return game;
 };
 
+exports.blackCard = function (roomID) {
+
+    return games.find(element => element.id == roomID).blackCards.shift();
+
+};
+
+exports.whiteCard = function (roomID) {
+
+    game = games.find(element => element.id == roomID)
+
+    game.players.forEach(element => {
+        while(element.hand.length < 5){
+            element.hand.push(game.whiteCards.shift());
+        }
+    });
+
+
+    return game;
+
+};
+
+exports.newRound = function (roomID) {
+
+    // findet das richtige Spiel
+    game = games.find(element => element.id == roomID);
+
+    // nimmt die nächste Schwarze Karte vom Stapel
+    game.currBlackCard = game.blackCards.shift();
+
+    // Füllt die Hände aller Spieler mit 5 weißen Karten
+    game.players.forEach(element => {
+        while(element.hand.length < 5){
+            element.hand.push(game.whiteCards.shift());
+        }
+    });
+
+
+    return game;
+
+}
+
 exports.joinGame = function joinGame(gameID, username, socketID) {
     let player = {
         player: username,
         socket: socketID,
+        hand: [],
+        //points: 0,
     }
     games.find(element => element.id == gameID).players.push(player);
     return games.find(element => element.id == gameID);

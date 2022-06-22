@@ -13,6 +13,10 @@ import { UserContext } from "../contexts/UserContext";
 function NavigateButton(props) {
   let navigate = useNavigate();
 
+  function navLobby(){
+    navigate('/Lobby');
+  }
+
   return (
     <UserContext.Consumer>
       {(context) => {
@@ -30,20 +34,27 @@ function NavigateButton(props) {
                     if(userName !== "" && userRoom !== "")
                     {
                       props.Socket.emit("join_room", userRoom, userName);
-                      props.Socket.on("userJoinsLobby", () => {
-                        navigate("/Lobby");
-                    })
+                      props.Socket.on("joined", () => {
+                        navLobby();
+                      })
+                      
                     }
                   }
                   if (task == "createRoom") {
                     if(userName !== "" && userRoom !== "")
                     {
                       props.Socket.emit("create_room", userRoom, userName);
-                      props.Socket.on("userJoinsLobby", () => {
-                          navigate("/Lobby");
+                      props.Socket.on("joined", () => {
+                        navLobby();
                       })
-                      }
                     }
+                    }
+                  if (task == "startGame") {
+                    props.Socket.emit("start_game", userRoom, userName);
+                    // props.Socket.emit('send_black_card', userRoom);
+                    // props.Socket.emit('send_white_card', userRoom);
+                    props.Socket.emit("new_round", userRoom);
+                  }
                   }
                 }
                 className="createbutton text-black text-bold"
