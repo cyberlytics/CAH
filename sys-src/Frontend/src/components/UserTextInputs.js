@@ -17,22 +17,32 @@ function UserTextInputs(props) {
     <UserContext.Consumer>
       {(context) => {
       const {changeUserName, changeUserRoom } = context;
+      var task = props.Function.toString();
 
       return (
         <Form.Group className="mx-auto mb-5 inputform">
           <Form.Label>
               {props.Title}
           </Form.Label>
+          { task == "user" && 
           <Form.Control type="text" placeholder={props.Text} onChange={(event) => {
-            var task = props.Function.toString();
-            if(task == "user"){
+        
               changeUserName(event.target.value);
-            }
-            if(task == "room"){
-              changeUserRoom(event.target.value);
-             }
-            }}    
+          
+            }}   
           />
+
+          }
+          { task == "room" && 
+          <Form.Control type="text"  placeholder={props.Text} onChange={(event) => {
+        
+              changeUserRoom(event.target.value);
+          
+            }}   
+          />
+
+          }
+         
           <Form.Text className="text-muted">
 
           </Form.Text>
@@ -44,3 +54,16 @@ function UserTextInputs(props) {
 }
 
 export default UserTextInputs;
+
+
+
+/*<Form.Control type="text" placeholder={props.Text} onChange={(event) => {
+            var task = props.Function.toString();
+            if(task == "user"){
+              changeUserName(event.target.value);
+            }
+            if(task == "room"){
+              changeUserRoom(event.target.value);
+             }
+            }}    
+          />*/
