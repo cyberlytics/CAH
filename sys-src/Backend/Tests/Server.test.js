@@ -2,17 +2,16 @@
 // FileName: Server.test.js
 // Autor: Sophie Spies - ea6e
 // Erstellt am: 02-06-2022 - 10:00
-// letzte Änderung: 15.06.2022 - 19:30
+// letzte Änderung: 22.06.2022 - 19:30
 // Beschreibung: Tests für die Serverlogik
 /////////////////////////////////////////////
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const Client = require("socket.io-client");
-const game =require ("../game/lobbyfunctions");
+
 const lobby =require("../game/lobbyfunctions");
 const {joinGame} = require("../game/lobbyfunctions");
 
-//const Room =require("sys-src/Frontend/src/pages/Room.js");
 
 describe("Cards Against, Server logic", () => {
     let io, clientSocket,clientSocket2,clientSocket3,clientSocket4,clientSocket5,clientSocket6,RoomId,user;
@@ -36,7 +35,7 @@ describe("Cards Against, Server logic", () => {
     });
 //nach allen Tests wird die verbindung geschlossen
     afterAll(() => {
-        io.close();
+       io.close();
         //clientSocket.emit("disconnect");
         clientSocket.close();
 
@@ -109,11 +108,11 @@ describe("Cards Against, Server logic", () => {
     test('test create_room',()=>{
         const RoomId2=5;
 
-        //clientSocket.emit("create_room",RoomId2,user);
+        clientSocket.emit("create_room",RoomId2,user);
         //   expect(clientSocket.on()).toBe('joined')
         clientSocket.on('joined',()=>{
             expect(io.socket.username).toBe(user);
-            expect(io.socket.rooms).toBe(RoomId);
+            expect(io.socket.rooms).toBe(RoomId2);
         })
         // expect(serverSocket.io.sockets.adapter.rooms.get(room).size).toBe(1);
 
@@ -125,15 +124,12 @@ describe("Cards Against, Server logic", () => {
 
         const user2='whatever2';
 
-        //clientSocket.emit("create_room",RoomId,user);
-        clientSocket.emit("create_room",RoomId,user2);
-
-        //testen ob der user dem raum beigetreten
-
-        expect(io.sockets.adapter.rooms.get(RoomId)).not.toBeNull();
-
+        clientSocket.emit("create_room",RoomId,user2,()=>{
+        expect(clientSocket.on('roomalreadyexists')).toBeCalled();
+        });
     })
 test("test start game",()=>{
+    clientSocket.emit("start_game",RoomId,user);
     io.on("creatorStartsGame",()=>{
        expect(lobby.gamestartobject).toBeDefined();
     });
@@ -151,18 +147,32 @@ test("test send white card",()=>{
             expect(arg).toBeDefined();
         })
     })
-    test("test sever new round",()=>{
+    test("lobby black cards",()=>{
+const ArrayBlack=new Array('eins','zwei');
+        const ArrayWhite=new Array('eins','zwei');
+        lobby.addGame(user,3,RoomId,ArrayBlack,ArrayWhite);
+        expect(lobby.blackCard(RoomId)).toBeDefined();
+    })
+    test("lobby white cards",()=>{
+        const ArrayBlack=new Array('eins','zwei');
+        const ArrayWhite=new Array('eins','zwei');
+        lobby.addGame(user,3,RoomId,ArrayBlack,ArrayWhite);
+        expect(lobby.whiteCard(RoomId)).toBeDefined();
+    })
+    test("test server new round",()=>{
         clientSocket.emit("new_round",RoomId);
         clientSocket.on('push_new_round',(arg)=>{
             expect(arg).toBeDefined();
         })
     })
-    //tests der Datei gamefunctions
+  test("lobby new round",()=>{
+      expect(lobby.newRound(RoomId)).toBeDefined();
+  })
 
     test("test black Card",()=>{
 //parameter ist die Roomid
         const socketId=3;
-        //clientSocket.emit("create_room",RoomId,user);
+
         lobby.addGame('random',socketId,RoomId);
         //gameid=raumid
         lobby.joinGame(RoomId,'random',socketId);
@@ -197,11 +207,11 @@ test("test send white card",()=>{
         clientSocket.emit("start_game",RoomId,user);
         //expects müssen ion start game stehen
         io.on("creatorStartsGame",()=>{
-        expect(game.newRound(RoomId)).not.toBeNull();
+        expect(lobby.newRound(RoomId)).not.toBeNull();
         expect(lobby.newRound(RoomId)).not.toBeNull();
         });
     })
-//Tests de Datei lobbyfunctions
+
 
     test("test join Game",()=>{
         lobby.addGame('random',3,RoomId);
@@ -210,19 +220,31 @@ test("test send white card",()=>{
     //not working,start game?
     test("test leave Game",()=>{
         const socketId=3;
-      //  clientSocket.emit("create_room",RoomId,user);
-        lobby.addGame('random',socketId,RoomId);
+        clientSocket.emit("create_room",RoomId,user);
+        lobby.addGame(user,socketId,RoomId);
         //gameid=raumid
-        lobby.joinGame(RoomId,'random',socketId);
-        clientSocket.emit("start_game",RoomId,user);
-
+        lobby.joinGame(RoomId,user,socketId);
+       // clientSocket.emit("start_game",RoomId,user);
         expect(lobby.leaveGame(socketId)).toBeDefined();
     })
-    //testen wenn wer anderes als creator das spiel verlässt
+test("test leave game 2",()=>{
+    expect(lobby.leaveGame(5)).toBeUndefined();
+})
 
     test("test Add Game",()=>{
-        expect(lobby.addGame('random',3,RoomId)).toBeDefined();
+        const socketId=3;
+        expect(lobby.addGame(user,socketId,RoomId)).toBeDefined();
+
     })
+
+
+
+    test("leave empty game",()=>{
+        expect(lobby.leaveGame(10)).toBeUndefined();
+    })
+    //testen ob jeder Spieler karten bekommt
+    //leve game wenn keiner im spiel war
+    //testen wenn wer anderes als creator das spiel verlässt
 });
 
 
