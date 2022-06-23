@@ -136,13 +136,11 @@ io.on("connection", (socket) => {
             if (gameleaveobject.players[0].socket == socket.id) {
                 console.log("der creator ist raus")
                 io.in(gameleaveobject.id).emit("LobbyWurdeEntfernt")
-                io.in(gameleaveobject.id).emit("updateLobby", gameleaveobject, io.sockets.adapter.rooms.get(gameleaveobject.id).size) 
                 io.in(gameleaveobject.id).socketsLeave(gameleaveobject.id);
             }
             // gameobject wird ans frontend weiter gereicht wenn spieler 2 den raum verlässt
             else {
                 console.log("ein Spieler hat die lobby verlassen")
-                io.in(gameleaveobject.id).emit("updateLobby", gameleaveobject, io.sockets.adapter.rooms.get(gameleaveobject.id).size) 
                 io.in(gameleaveobject.id).emit("userLeavesLobby", gameleaveobject, io.sockets.adapter.rooms.get(gameleaveobject.id).size)
             }
         }
