@@ -1,37 +1,54 @@
-const { createServer } = require("http");
-const { Server } = require("socket.io");
-const Client = require("socket.io-client");
+/**
+ * @jest-environment jsdom
+ */
+import * as ReactDOMClient from 'react-dom/client';
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import Lobby from "../pages/Lobby";
+import blackCard from "../pages/BlackCard";
+import startpage from "../pages/startpage";
+const React=require("react");
+const { unmountComponentAtNode,render } =require( "react-dom");
+const {act}=require("react-dom/test-utils");
+//const container = document.getElementById('Lobby');
+
+// Create a root.
+//const root = ReactDOMClient.createRoot(container);
+
+//const lobby=require("./pages/Lobby");
+let container ;
+beforeEach(() => {
+    // setup a DOM element as a render target
+    container = document.createElement("div");
+    document.body.appendChild(container);
+});
+
+afterEach(() => {
+    // cleanup on exiting
+    unmountComponentAtNode(container);
+    container.remove();
+    container = null;
+});
+//test
 
 
-describe("Cards Against, Frontend", () => {
-    let io, serverSocket, clientSocket, clientSocket2, clientSocket3, clientSocket4, clientSocket5, clientSocket6,RoomId,user;
-    jest.setTimeout(30000);
-//vor allen tests wird eine Verbindung aufgebaut
-    //Server und client werden mit serverSocket und ClientSocket dargestellt
+it("renders with or without a name", () => {
 
-    beforeAll((done) => {
-        const httpServer = createServer();
-        io = new Server(httpServer);
-        httpServer.listen(() => {
-            const port = httpServer.address().port;
-            clientSocket = new Client(`http://localhost:${port}`);
-            io.on("connection", (socket) => {
-                serverSocket = socket;
-            });
-            clientSocket.on("connect", done);
+    expect(1).toBe(1);
+});
+    it("Lobby test",()=>{
+  // expect(lobby.name).not.toBeDefined();
+    });
+    it("Lobby test 2",()=>{
+        act(()=>{
+        render(<Lobby probs="random" />,container)
         });
+    expect(container.textContent).toBeDefined();
+});
+    it("test Black Card",()=>{
+        const props="random";
+expect(blackCard(props)).not.toBeDefined();
     });
-
-
-//nach allen Tests wird die verbindung geschlossen
-    afterAll(() => {
-        io.close();
-
-        clientSocket.close();
-
-    });
-
-    test("testing",()=>{
-        expect(1).toBe(1);
-    })
-})
+it("test startpage",()=>{
+    const props="random";
+    expect(startpage(props)).toBeDefined();
+});
