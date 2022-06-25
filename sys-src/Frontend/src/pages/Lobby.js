@@ -7,27 +7,31 @@ import BlackCard from "../components/BlackCard.js";
 import WhiteCard from "../components/WhiteCard.js";
 import { useState, useEffect } from "react";
 import UserContextProvider from "../contexts/UserContext.js";
+import { UserContext } from "../contexts/UserContext";
 
 function Lobby(props) {
   const [roomsize, setRoomsize] = useState(0);
   const [playerObject, setPlayerObject] = useState([]);
   const [iscreator, creator] = useState(false);
   const [gamestarted, started] = useState(false);
-  const [counter, setCounter] = useState(5);
+  
 
   let navigate = useNavigate();
+  
+  return (
+    <UserContext.Consumer>
+      {(context) => {
+        const { userName, userRoom } = context;
   let navbuttons = [{ Function: "startGame", Text: "Start Game" }];
 
+  
+  
+    if(gamestarted){
+    props.Socket.emit("new_round", userRoom, props.Socket.id);
+    navigate("/Game");
+    };
+
   // Checkt, ob der gamestarted true ist und löst dann einen counter aus, der bei null den view zu game wechselt
-  useEffect(() => {
-    if (gamestarted) {
-      const timer =
-        counter > 0 && setTimeout(() => setCounter(counter - 1), 1000);
-    }
-    if (counter === 0) {
-      navigate("/Game");
-    }
-  }, [counter, gamestarted]);
 
 
   props.Socket.on("updateLobby", (gameobject, size) => {
@@ -57,11 +61,6 @@ function Lobby(props) {
 
   return (
     <Container fluid className=" vh-100">
-      {gamestarted && (
-        <div className="text-center startcounter position-absolute">
-          {counter}
-        </div>
-      )}
       <Row className="vh-100">
         <Col>
           <BlackCard />
@@ -80,6 +79,9 @@ function Lobby(props) {
       </Row>
     </Container>
   );
+}}
+</UserContext.Consumer>
+);
 }
 
 export default Lobby;
