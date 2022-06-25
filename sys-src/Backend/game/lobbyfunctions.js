@@ -40,14 +40,15 @@ exports.whiteCard = function (roomID) {
 
 };
 
-exports.newRound = function (roomID) {
+exports.newRound = function (roomID, playerSocket) {
 
     // findet das richtige Spiel
     game = games.find(element => element.id == roomID);
 
+    if(playerSocket == game.players[0].socket){
     // nimmt die nächste Schwarze Karte vom Stapel
     game.currBlackCard = game.blackCards.shift();
-
+}
     // Füllt die Hände aller Spieler mit 5 weißen Karten
     game.players.forEach(element => {
         while(element.hand.length < 5){

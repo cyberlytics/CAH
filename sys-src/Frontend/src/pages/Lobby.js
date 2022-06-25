@@ -27,7 +27,7 @@ function Lobby(props) {
   
   
     if(gamestarted){
-    props.Socket.emit("new_round", userRoom);
+    props.Socket.emit("new_round", userRoom, props.Socket.id);
     navigate("/Game");
     };
 
