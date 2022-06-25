@@ -1,7 +1,8 @@
 
 
-let games = []
+let games = [] // speichert die Daten aller laufenden Spiele
 
+// ein neues Spiel wird erstellt
 exports.addGame = function (username, socketID, roomname, ArrayBlackCards, ArrayWhiteCards) {
     let game = {
         id: roomname,
@@ -11,55 +12,37 @@ exports.addGame = function (username, socketID, roomname, ArrayBlackCards, Array
             hand: [],
             //points: 0,
         }],
+        placedwhiteCards:[{
+            player: "",
+            currWhiteCard: ""
+        }], 
         whiteCards: ArrayWhiteCards,
         blackCards: ArrayBlackCards,
         currBlackCard: "",
+        //center: [],
     }
     games.push(game);
     return game;
 };
 
-exports.blackCard = function (roomID) {
-
-    return games.find(element => element.id == roomID).blackCards.shift();
-
-};
-
-exports.whiteCard = function (roomID) {
-
-    game = games.find(element => element.id == roomID)
-
-    game.players.forEach(element => {
-        while(element.hand.length < 5){
-            element.hand.push(game.whiteCards.shift());
-        }
-    });
-
-
-    return game;
-
-};
-
+// verteilt die Karten am Anfang einer neuen Runde
 exports.newRound = function (roomID) {
+    for (let element of games) {
+        if (element.id == roomID) {
+            // neue current schwarze Karte wählen
+            element.currBlackCard = element.blackCards.shift()
 
-    // findet das richtige Spiel
-    game = games.find(element => element.id == roomID);
-
-    // nimmt die nächste Schwarze Karte vom Stapel
-    game.currBlackCard = game.blackCards.shift();
-
-    // Füllt die Hände aller Spieler mit 5 weißen Karten
-    game.players.forEach(element => {
-        while(element.hand.length < 5){
-            element.hand.push(game.whiteCards.shift());
+            // Handkarten verteilen
+            for (let element2 of element.players) {
+                while (element2.hand.length < 5) {
+                    element2.hand.push(element.whiteCards.shift());
+                }
+            }
         }
-    });
-
-
-    return game;
-
+    }
 }
 
+// ein Spieler tritt der Lobby bei
 exports.joinGame = function joinGame(gameID, username, socketID) {
     let player = {
         player: username,
@@ -71,6 +54,7 @@ exports.joinGame = function joinGame(gameID, username, socketID) {
     return games.find(element => element.id == gameID);
 }
 
+// ein Spieler verlässt die Lobby
 exports.leaveGame = function leaveGame(socketID) {
     let copyelement;
     let index2;
@@ -106,6 +90,26 @@ exports.leaveGame = function leaveGame(socketID) {
 }
 
 // gibt einfach das Game mit der entsprechenden ID wieder
-exports.getGame = function getGame(gameID){
+exports.getGame = function getGame(gameID) {
     return games.find(element => element.id == gameID);
+}
+
+exports.AddPlacedWhiteCard = function AddPlacedWhiteCard(card, name, socketID){
+
+    for (let element of games) {
+        if (element.players != undefined) {
+            for (let element2 of element.players) {
+                if (element2.socket.includes(socketID)) {
+                    let add = {
+                        player: name,
+                        currWhiteCard: card,
+                    }
+                    element.placedwhiteCards.push(add)
+                    let copyelement = structuredClone(element);
+                    return copyelement;
+
+                }
+            };
+        }
+    }
 }

@@ -82,7 +82,7 @@ io.on("connection", (socket) => {
         if (io.sockets.adapter.rooms.get(data) == null) {
             console.log(`raum ${data} wurde erstellt`)
             socket.join(data);
-            let gameobject = lobbyfunctions.addGame(name, socket.id, data, KartenArraySchwarz, KartenArrayWeiss);
+            let gameobject = lobbyfunctions.addGame(name, socket.id, data, KartenArraySchwarz.slice(), KartenArrayWeiss.slice());
             socket.emit('joined', gameobject)
             // console.log(gameobject)
             // io.in(data).emit("creatorJoinsLobby", gameobject, io.sockets.adapter.rooms.get(data).size)
@@ -94,36 +94,58 @@ io.on("connection", (socket) => {
         }
     })
 
-    socket.on('new_round', (room) =>{
-
-        temp = lobbyfunctions.newRound(room);
-
-        socket.emit('push_new_round', temp);
-
+    socket.on('getGameobject', (room) =>{
+        socket.emit('push_gameobject', lobbyfunctions.getGame(room));
     })
 
-    socket.on("send_black_card", (room) => {
-
-        temp = lobbyfunctions.blackCard(room);
-        socket.emit('push_black_card', temp);
-
-    })
-
-    socket.on("send_white_card", (room) => {
-
-
-        temp = lobbyfunctions.whiteCard(room);
-
-        socket.emit('push_white_card', temp);
-
-
-    })
 
 
     socket.on("disconnect", () => {
         clientNo--;
         console.log(`User Anzahl: ${clientNo}`);
         console.log("User Disconnected", socket.id);
+        let gameleaveobject = lobbyfunctions.leaveGame(socket.id);
+        console.log(gameleaveobject)
+        if (gameleaveobject != undefined) {
+            // der raum wird gelöscht und alle spieler darin entfernt wenn creater verlässt
+            if (gameleaveobject.players[0].socket == socket.id) {
+                console.log("der creator ist raus")
+                io.in(gameleaveobject.id).emit("LobbyWurdeEntfernt")
+                io.in(gameleaveobject.id).socketsLeave(gameleaveobject.id);
+            }
+            // gameobject wird ans frontend weiter gereicht wenn spieler 2 den raum verlässt
+            else {
+                console.log("ein Spieler hat die lobby verlassen")
+                io.in(gameleaveobject.id).emit("userLeavesLobby", gameleaveobject, io.sockets.adapter.rooms.get(gameleaveobject.id).size)
+            }
+        }
+        else {
+            console.log(gameleaveobject)
+            console.log("er war in keinem raum")
+        }
+
+    })
+
+    
+    socket.on("start_game", (data) =>{
+        let gamestartobject = lobbyfunctions.getGame(data)
+        // checkt ob der spieler, der auf den Knopf gedrückt hat, auch wirklich der Lobby-ersteller ist und sendet an jeden in der Lobby den creatorStartsGame befehl
+        // auch wenn der check nicht soo notwendig ist, da ja eh nur der ersteller den knopf sieht
+        if(socket.id == gamestartobject.players[0].socket){
+            lobbyfunctions.newRound(data);
+            io.in(data).emit("creatorStartsGame")
+        }
+    })
+
+    socket.on("choose Card", (name, card) => {
+        let placedcardsobject = lobbyfunctions.AddPlacedWhiteCard(card, name, socket.id)
+        // sobald einer eine karte anklickt
+        //io.in(placedcardsobject.id).emit("UpdateDisplayedWhiteCards", placedcardsobject.placedwhiteCards)
+
+        // oder erst wenn alle spieler eine wahl getroffen haben
+        if(placedcardsobject.players.length == (placedcardsobject.placedwhiteCards.length - 1) ){
+            io.in(placedcardsobject.id).emit("UpdateDisplayedWhiteCards", placedcardsobject.placedwhiteCards)
+        }
     })
 });
 
