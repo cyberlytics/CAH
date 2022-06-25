@@ -1,7 +1,8 @@
 
 
-let games = []
+let games = [] // speichert die Daten aller laufenden Spiele
 
+// ein neues Spiel wird erstellt
 exports.addGame = function (username, socketID, roomname, ArrayBlackCards, ArrayWhiteCards) {
     let game = {
         id: roomname,
@@ -18,57 +19,30 @@ exports.addGame = function (username, socketID, roomname, ArrayBlackCards, Array
         whiteCards: ArrayWhiteCards,
         blackCards: ArrayBlackCards,
         currBlackCard: "",
+        //center: [],
     }
     games.push(game);
     return game;
 };
 
-exports.blackCard = function (roomID) {
-
-    return games.find(element => element.id == roomID).blackCards.shift();
-
-};
-
-exports.whiteCard = function (roomID) {
-
-    game = games.find(element => element.id == roomID)
-
-    game.players.forEach(element => {
-        while (element.hand.length < 5) {
-            element.hand.push(game.whiteCards.shift());
-        }
-    });
-
-
-    return game;
-
-};
-
-exports.newRound = function (roomID, playerSocket) {
-
-    // findet das richtige Spiel
-    let copyelement;
-    //let game = games.find(element => element.id == roomID);
-    console.log(roomID)
-    // nimmt die nächste Schwarze Karte vom Stapel
+// verteilt die Karten am Anfang einer neuen Runde
+exports.newRound = function (roomID) {
     for (let element of games) {
-        console.log("test")
         if (element.id == roomID) {
-            if(playerSocket == element.players[0].socket){
+            // neue current schwarze Karte wählen
             element.currBlackCard = element.blackCards.shift()
-            }
+
+            // Handkarten verteilen
             for (let element2 of element.players) {
                 while (element2.hand.length < 5) {
                     element2.hand.push(element.whiteCards.shift());
                 }
             }
-            copyelement = structuredClone(element);
-            return copyelement
         }
     }
-
 }
 
+// ein Spieler tritt der Lobby bei
 exports.joinGame = function joinGame(gameID, username, socketID) {
     let player = {
         player: username,
@@ -80,6 +54,7 @@ exports.joinGame = function joinGame(gameID, username, socketID) {
     return games.find(element => element.id == gameID);
 }
 
+// ein Spieler verlässt die Lobby
 exports.leaveGame = function leaveGame(socketID) {
     let copyelement;
     let index2;

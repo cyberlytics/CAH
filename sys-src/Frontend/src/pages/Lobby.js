@@ -14,74 +14,73 @@ function Lobby(props) {
   const [playerObject, setPlayerObject] = useState([]);
   const [iscreator, creator] = useState(false);
   const [gamestarted, started] = useState(false);
-  
 
   let navigate = useNavigate();
-  
+
   return (
     <UserContext.Consumer>
       {(context) => {
         const { userName, userRoom } = context;
-  let navbuttons = [{ Function: "startGame", Text: "Start Game" }];
+        let navbuttons = [{ Function: "startGame", Text: "Start Game" }];
 
-  
-  
-    if(gamestarted){
-    props.Socket.emit("new_round", userRoom, props.Socket.id);
-    navigate("/Game");
-    };
+        if (gamestarted) {
+          props.Socket.emit("getGameobject", userRoom);
+          navigate("/Game");
+        }
 
-  // Checkt, ob der gamestarted true ist und löst dann einen counter aus, der bei null den view zu game wechselt
+        // Checkt, ob der gamestarted true ist und löst dann einen counter aus, der bei null den view zu game wechselt
 
+        props.Socket.on("updateLobby", (gameobject, size) => {
+          setRoomsize(size);
+          setPlayerObject(gameobject.players);
 
-  props.Socket.on("updateLobby", (gameobject, size) => {
-    setRoomsize(size);
-    setPlayerObject(gameobject.players);
-    
-    // setzt für den Ersteller true. Ist dazu da, den start-Button dem User anzuzeigen
-    var creatorplayer = gameobject.players[0];
-    if (creatorplayer.socket == props.Socket.id) {
-      creator(true);
-    }
+          // setzt für den Ersteller true. Ist dazu da, den start-Button dem User anzuzeigen
+          var creatorplayer = gameobject.players[0];
+          if (creatorplayer.socket == props.Socket.id) {
+            creator(true);
+          }
 
-    // hier werden dem aktuellen client alle spieler und die raumkapazität gegeben
-    console.debug(
-      `Die User ${playerObject} treffen ein und die Raumbelegung ${roomsize} von 5`
-    );
-  });
+          // hier werden dem aktuellen client alle spieler und die raumkapazität gegeben
+          console.debug(
+            `Die User ${playerObject} treffen ein und die Raumbelegung ${roomsize} von 5`
+          );
+        });
 
-  // setzt started true, und startet damit den timer, der dann den view zum game wechselt
-  props.Socket.on("creatorStartsGame", () => {
-    started(true);
-  });
+        // setzt started true, und startet damit den timer, der dann den view zum game wechselt
+        props.Socket.on("creatorStartsGame", () => {
+          started(true);
+        });
 
-  props.Socket.on("LobbyWurdeEntfernt", () => {
-    navigate("/");
-  });
+        props.Socket.on("LobbyWurdeEntfernt", () => {
+          navigate("/");
+        });
 
-  return (
-    <Container fluid className=" vh-100">
-      <Row className="vh-100">
-        <Col>
-          <BlackCard />
-        </Col>
-        <Col>
-          <WhiteCard Socket={props.Socket} TextFields={playerObject} />
-        </Col>
-        <Col>
-          <WhiteCard />
-        </Col>
-        {iscreator && (
-          <Col>
-            <WhiteCard Socket={props.Socket} NavigateButtons={navbuttons} />
-          </Col>
-        )}
-      </Row>
-    </Container>
+        return (
+          <Container fluid className=" vh-100">
+            <Row className="vh-100">
+              <Col>
+                <BlackCard />
+              </Col>
+              <Col>
+                <WhiteCard Socket={props.Socket} TextFields={playerObject} />
+              </Col>
+              <Col>
+                <WhiteCard />
+              </Col>
+              {iscreator && (
+                <Col>
+                  <WhiteCard
+                    Socket={props.Socket}
+                    NavigateButtons={navbuttons}
+                  />
+                </Col>
+              )}
+            </Row>
+          </Container>
+        );
+      }}
+    </UserContext.Consumer>
   );
-}}
-</UserContext.Consumer>
-);
 }
 
 export default Lobby;
