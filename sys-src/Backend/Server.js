@@ -167,11 +167,13 @@ io.on("connection", (socket) => {
         }
     })
 
-    socket.on("", (card, name) => {
+    socket.on("choose Card", (name, card) => {
         let placedcardsobject = lobbyfunctions.AddPlacedWhiteCard(card, name, socket.id)
-        io.in(placedcardsobject.id).emit("UpdateDisplayedWhiteCards", placedcardsobject.placedwhiteCards)
+        // sobald einer eine karte anklickt
+        //io.in(placedcardsobject.id).emit("UpdateDisplayedWhiteCards", placedcardsobject.placedwhiteCards)
+
         // oder erst wenn alle spieler eine wahl getroffen haben
-        if(placedcardsobject.players.length == (placedcardsobject.AddPlacedWhiteCard.length) ){
+        if(placedcardsobject.players.length == (placedcardsobject.placedwhiteCards.length - 1) ){
             io.in(placedcardsobject.id).emit("UpdateDisplayedWhiteCards", placedcardsobject.placedwhiteCards)
         }
     })
