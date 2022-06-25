@@ -11,3 +11,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.mainContainer{
+  background: -webkit-linear-gradient(-10deg, white 50%, black 50%);
+}
+
