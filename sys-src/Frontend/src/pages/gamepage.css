@@ -1,0 +1,24 @@
+.centerField{
+    background: white;
+    height: 50%;
+}
+
+.playerHand{
+   
+    height: 50%;
+}
+
+.blackcard{
+   height: 100%;
+   font-size: 10px;
+}
+
+.gametitle{
+    font-size: 100%;
+}
+
+.BTN{
+    height: 100%;
+    width: 100%;
+    
+}

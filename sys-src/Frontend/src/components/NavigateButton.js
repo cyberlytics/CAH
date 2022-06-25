@@ -17,6 +17,10 @@ function NavigateButton(props) {
     navigate('/Lobby');
   }
 
+  function navGame(){
+    navigate('/Game');
+  }
+
   return (
     <UserContext.Consumer>
       {(context) => {
@@ -53,7 +57,8 @@ function NavigateButton(props) {
                     props.Socket.emit("start_game", userRoom, userName);
                     // props.Socket.emit('send_black_card', userRoom);
                     // props.Socket.emit('send_white_card', userRoom);
-                    props.Socket.emit("new_round", userRoom);
+                    //props.Socket.emit("new_round", userRoom);
+                    //navGame();
                   }
                   }
                 }

@@ -45,6 +45,14 @@ function WhiteCard(props) {
     }
   }
 
+  if (props.Cards != null){
+    {
+      var card = (
+        <TextField Text={props.Cards.Inhalt} Socket={props.Socket}></TextField>
+      )
+    }
+  }
+
   return (
     <div className="justify-content-center flex-column d-flex whitecard h-100">
       <Form>
@@ -54,6 +62,9 @@ function WhiteCard(props) {
         </div>
         <div className="justify-content-center flex-column d-flex">
           {textFields}
+        </div>
+        <div className="justify-content-center flex-column d-flex">
+          {card}
         </div>
       </Form>
     </div>

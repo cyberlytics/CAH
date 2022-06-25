@@ -87,7 +87,7 @@ io.on("connection", (socket) => {
         if (io.sockets.adapter.rooms.get(data) == null) {
             console.log(`raum ${data} wurde erstellt`)
             socket.join(data);
-            let gameobject = lobbyfunctions.addGame(name, socket.id, data, KartenArraySchwarz, KartenArrayWeiss);
+            let gameobject = lobbyfunctions.addGame(name, socket.id, data, KartenArraySchwarz.slice(), KartenArrayWeiss.slice());
             socket.emit('joined', gameobject)
             // console.log(gameobject)
             // io.in(data).emit("creatorJoinsLobby", gameobject, io.sockets.adapter.rooms.get(data).size)
@@ -99,11 +99,17 @@ io.on("connection", (socket) => {
         }
     })
 
-    socket.on('new_round', (room) =>{
+    socket.on('new_round', (room, playerSocket) =>{
 
-        temp = lobbyfunctions.newRound(room);
+        io.in(room).emit("switch_to_game");
+
+        temp = lobbyfunctions.newRound(room, playerSocket);
+        console.log(KartenArraySchwarz.length)
+        console.log(KartenArrayWeiss.length)
+
 
         socket.emit('push_new_round', temp);
+
 
     })
 
