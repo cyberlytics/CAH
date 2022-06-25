@@ -99,36 +99,10 @@ io.on("connection", (socket) => {
         }
     })
 
-    socket.on('new_round', (room, playerSocket) =>{
-
-        io.in(room).emit("switch_to_game");
-
-        temp = lobbyfunctions.newRound(room, playerSocket);
-        console.log(KartenArraySchwarz.length)
-        console.log(KartenArrayWeiss.length)
-
-
-        socket.emit('push_new_round', temp);
-
-
+    socket.on('getGameobject', (room) =>{
+        socket.emit('push_gameobject', lobbyfunctions.getGame(room));
     })
 
-    socket.on("send_black_card", (room) => {
-
-        temp = lobbyfunctions.blackCard(room);
-        socket.emit('push_black_card', temp);
-
-    })
-
-    socket.on("send_white_card", (room) => {
-
-
-        temp = lobbyfunctions.whiteCard(room);
-
-        socket.emit('push_white_card', temp);
-
-
-    })
 
 
     socket.on("disconnect", () => {
@@ -158,11 +132,12 @@ io.on("connection", (socket) => {
     })
 
     
-    socket.on("start_game", (data, name) =>{
+    socket.on("start_game", (data) =>{
         let gamestartobject = lobbyfunctions.getGame(data)
         // checkt ob der spieler, der auf den Knopf gedrückt hat, auch wirklich der Lobby-ersteller ist und sendet an jeden in der Lobby den creatorStartsGame befehl
         // auch wenn der check nicht soo notwendig ist, da ja eh nur der ersteller den knopf sieht
         if(socket.id == gamestartobject.players[0].socket){
+            lobbyfunctions.newRound(data);
             io.in(data).emit("creatorStartsGame")
         }
     })

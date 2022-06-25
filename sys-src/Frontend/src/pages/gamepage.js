@@ -20,18 +20,13 @@ return (
     {(context) => {
         const { userName, userRoom } = context;
 
-//props.Socket.emit("new_round", userRoom);
-props.Socket.on("push_new_round", (gameObject) =>{
+props.Socket.on("push_gameobject", (gameObject) =>{
     console.log(gameObject);
     setBlackCard(gameObject.currBlackCard);
-    //console.log(blackCard);
-    //console.log(gameObject);
-    //console.log(gameObject.players[0].socket);
-    //console.log(props.Socket.id);
+
     gameObject.players.forEach(element=>{
         if(element.socket == props.Socket.id) {
             setPlayerHand(element.hand);
-            console.log("ich war hier");
         }
     });
     console.log(playerHand);
