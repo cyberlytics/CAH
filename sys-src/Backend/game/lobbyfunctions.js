@@ -30,7 +30,7 @@ exports.whiteCard = function (roomID) {
     game = games.find(element => element.id == roomID)
 
     game.players.forEach(element => {
-        while(element.hand.length < 5){
+        while (element.hand.length < 5) {
             element.hand.push(game.whiteCards.shift());
         }
     });
@@ -43,21 +43,25 @@ exports.whiteCard = function (roomID) {
 exports.newRound = function (roomID, playerSocket) {
 
     // findet das richtige Spiel
-    game = games.find(element => element.id == roomID);
-
-    if(playerSocket == game.players[0].socket){
+    let copyelement;
+    //let game = games.find(element => element.id == roomID);
+    console.log(roomID)
     // nimmt die nächste Schwarze Karte vom Stapel
-    game.currBlackCard = game.blackCards.shift();
-}
-    // Füllt die Hände aller Spieler mit 5 weißen Karten
-    game.players.forEach(element => {
-        while(element.hand.length < 5){
-            element.hand.push(game.whiteCards.shift());
+    for (let element of games) {
+        console.log("test")
+        if (element.id == roomID) {
+            if(playerSocket == element.players[0].socket){
+            element.currBlackCard = element.blackCards.shift()
+            }
+            for (let element2 of element.players) {
+                while (element2.hand.length < 5) {
+                    element2.hand.push(element.whiteCards.shift());
+                }
+            }
+            copyelement = structuredClone(element);
+            return copyelement
         }
-    });
-
-
-    return game;
+    }
 
 }
 
@@ -107,6 +111,6 @@ exports.leaveGame = function leaveGame(socketID) {
 }
 
 // gibt einfach das Game mit der entsprechenden ID wieder
-exports.getGame = function getGame(gameID){
+exports.getGame = function getGame(gameID) {
     return games.find(element => element.id == gameID);
 }
