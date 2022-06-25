@@ -50,30 +50,45 @@ props.Socket.on("push_new_round", (gameObject) =>{
 
           <Row className ="playerHand">
                 <Col>
-                    <Button className ="BTN" variant ="outline-dark">
+                    <Button className ="BTN color: black !important" variant ="outline-dark"
+                    onClick={() => { 
+                        props.Socket.emit("choose Card", userName,playerHand[0].Inhalt)
+                        console.log(playerHand[0].Inhalt)}}>
                         <WhiteCard Cards={playerHand[0]}/>
                     </Button>
                 </Col>
                 <Col>
-                    <Button className ="BTN" variant ="outline-dark" >
+                    <Button className ="BTN color: black !important" variant ="outline-dark" 
+                    onClick={() => { 
+                        props.Socket.emit("choose Card", userName,playerHand[1].Inhalt)
+                        console.log(playerHand[1].Inhalt)}}>
                         <WhiteCard Cards={playerHand[1]}/>
                     </Button>
                 </Col>
                 <Col>
-                    <Button className ="BTN variant" variant="outline-dark">
+                    <Button className ="BTN color: black !important" variant="outline-dark"
+                    onClick={() => { 
+                        props.Socket.emit("choose Card", userName,playerHand[2].Inhalt)
+                        console.log(playerHand[2].Inhalt)}}>
                         <WhiteCard Cards={playerHand[2]}/>
                     </Button>
                     
                 </Col>
                 <Col>
-                    <Button className ="BTN" variant="outline-dark">
+                    <Button className ="BTN color: black !important" variant="outline-dark"
+                    onClick={() => { 
+                        props.Socket.emit("choose Card", userName,playerHand[3].Inhalt)
+                        console.log(playerHand[3].Inhalt)}}>
                         <WhiteCard Cards={playerHand[3]}/>
                     </Button>
                    
                     </Col>
                     
                 <Col>
-                    <Button className="BTN" variant="outline-dark">
+                    <Button className="BTN color: black !important" variant="outline-dark"
+                    onClick={() => { 
+                        props.Socket.emit("choose Card", userName,playerHand[4].Inhalt)
+                        console.log(playerHand[4].Inhalt)}}>
                         <WhiteCard Cards={playerHand[4]}/>
                     </Button>
                 </Col>
