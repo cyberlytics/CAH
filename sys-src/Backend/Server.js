@@ -1,7 +1,9 @@
 const express = require('express');
+const router = express.Router();
 const app = express();
 const http = require('http');
 const { Server } = require("socket.io");
+const { assert } = require('console');
 
 
 //to import mongodb 
@@ -47,12 +49,15 @@ const io = new Server(server, {
 
 let clientNo = 0;
 
+//gamearray
+let lobbyfunctions = require('./game/lobbyfunctions.js')
+
+
+
+//socket logik
 io.on("connection", (socket) => {
     console.log(`User Connected: ${socket.id}`);
     clientNo++;
-
-    //socket.join(Math.round(clientNo/2));
-    //socket.emit('serverMsg', roomNo);
 
     console.log(`User Anzahl: ${clientNo}`);
     socket.on("join_room", (data, name) => {
