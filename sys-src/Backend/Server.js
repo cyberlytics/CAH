@@ -160,6 +160,15 @@ io.on("connection", (socket) => {
             io.in(data).emit("creatorStartsGame")
         }
     })
+
+    socket.on("", (card, name) => {
+        let placedcardsobject = lobbyfunctions.AddPlacedWhiteCard(card, name, socket.id)
+        io.in(placedcardsobject.id).emit("UpdateDisplayedWhiteCards", placedcardsobject.placedwhiteCards)
+        // oder erst wenn alle spieler eine wahl getroffen haben
+        if(placedcardsobject.players.length == (placedcardsobject.AddPlacedWhiteCard.length) ){
+            io.in(placedcardsobject.id).emit("UpdateDisplayedWhiteCards", placedcardsobject.placedwhiteCards)
+        }
+    })
 });
 
 

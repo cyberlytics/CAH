@@ -11,6 +11,10 @@ exports.addGame = function (username, socketID, roomname, ArrayBlackCards, Array
             hand: [],
             //points: 0,
         }],
+        placedwhiteCards:[{
+            player: "",
+            currWhiteCard: ""
+        }], 
         whiteCards: ArrayWhiteCards,
         blackCards: ArrayBlackCards,
         currBlackCard: "",
@@ -108,4 +112,24 @@ exports.leaveGame = function leaveGame(socketID) {
 // gibt einfach das Game mit der entsprechenden ID wieder
 exports.getGame = function getGame(gameID){
     return games.find(element => element.id == gameID);
+}
+
+exports.AddPlacedWhiteCard = function AddPlacedWhiteCard(card, name, socketID){
+
+    for (let element of games) {
+        if (element.players != undefined) {
+            for (let element2 of element.players) {
+                if (element2.socket.includes(socketID)) {
+                    let add = {
+                        player: name,
+                        currWhiteCard: card,
+                    }
+                    element.placedwhiteCards.push(add)
+                    let copyelement = structuredClone(element);
+                    return copyelement;
+
+                }
+            };
+        }
+    }
 }
