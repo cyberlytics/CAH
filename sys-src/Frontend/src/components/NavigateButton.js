@@ -57,8 +57,8 @@ function NavigateButton(props) {
                     props.Socket.emit("start_game", userRoom, userName);
                     // props.Socket.emit('send_black_card', userRoom);
                     // props.Socket.emit('send_white_card', userRoom);
-                    props.Socket.emit("new_round", userRoom);
-                    navGame();
+                    //props.Socket.emit("new_round", userRoom);
+                    //navGame();
                   }
                   }
                 }
