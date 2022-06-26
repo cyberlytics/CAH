@@ -75,7 +75,7 @@ io.on("connection", (socket) => {
                 socket.emit("joined", gamejoinobject)
                 // console.log(gamejoinobject)
                 //schickt allen clients im selben raum die nachricht, alle clients die nach einem gejoint werden beim vorherig gejointen client angezeigt
-                io.in(data).emit("updateLobby", gamejoinobject, io.sockets.adapter.rooms.get(data).size)            
+                io.in(data).emit("updateLobby", gamejoinobject, io.sockets.adapter.rooms.get(data).size)
             }
             else {
                 console.log('Cant join a full lobby')
@@ -123,7 +123,6 @@ io.on("connection", (socket) => {
                 console.log("ein Spieler hat die lobby verlassen")
                 io.in(gameleaveobject.id).emit("userLeavesLobby", gameleaveobject, io.sockets.adapter.rooms.get(gameleaveobject.id).size)
             }
-
         }
         else {
             console.log(gameleaveobject)
@@ -162,6 +161,7 @@ io.on("connection", (socket) => {
         io.in(room).emit("show winner", name);
     } )
 });
+
 
 server.listen(3001, () => {
     console.log("server running")
