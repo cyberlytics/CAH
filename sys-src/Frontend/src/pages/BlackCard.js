@@ -1,5 +1,6 @@
 import React from "react";
-import { ButtonGroup, Button } from "shards-react";
+import * as items from "react-bootstrap/ElementChildren";
+//import { ButtonGroup, Button } from "shards-react";
 
 
 export default function blackCard(props){
