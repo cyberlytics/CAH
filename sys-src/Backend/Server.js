@@ -146,10 +146,13 @@ io.on("connection", (socket) => {
         let placedcardsobject = lobbyfunctions.AddPlacedWhiteCard(card, name, socket.id)
         // sobald einer eine karte anklickt
         //io.in(placedcardsobject.id).emit("UpdateDisplayedWhiteCards", placedcardsobject.placedwhiteCards)
-
+        console.log(placedcardsobject.players.length)
+        console.log(placedcardsobject.placedwhiteCards.length)
         // oder erst wenn alle spieler eine wahl getroffen haben
-        if(placedcardsobject.players.length == (placedcardsobject.placedwhiteCards.length - 1) ){
+        if(((placedcardsobject.players.length -1) == (placedcardsobject.placedwhiteCards.length -1 )) && (placedcardsobject.placedwhiteCards.length >1) ){
             io.in(placedcardsobject.id).emit("UpdateDisplayedWhiteCards", placedcardsobject.placedwhiteCards)
+            console.log(placedcardsobject.players.length)
+            console.log(placedcardsobject.placedwhiteCards)
         }
     })
 });
