@@ -123,6 +123,7 @@ io.on("connection", (socket) => {
                 console.log("ein Spieler hat die lobby verlassen")
                 io.in(gameleaveobject.id).emit("userLeavesLobby", gameleaveobject, io.sockets.adapter.rooms.get(gameleaveobject.id).size)
             }
+
         }
         else {
             console.log(gameleaveobject)
@@ -161,7 +162,6 @@ io.on("connection", (socket) => {
         io.in(room).emit("show winner", name);
     } )
 });
-
 
 server.listen(3001, () => {
     console.log("server running")
