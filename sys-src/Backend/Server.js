@@ -156,8 +156,9 @@ io.on("connection", (socket) => {
            
         }
     })
-    socket.on("pick winner", (name) => {
-        console.log(name);
+    socket.on("pick winner", (name, room) => {
+        console.log(name, "is the winner");
+        io.in(room).emit("show winner", name);
     } )
 });
 

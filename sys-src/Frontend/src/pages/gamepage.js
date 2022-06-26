@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import io, { Socket } from 'socket.io-client';
 import {useNavigate, useParams} from 'react-router-dom';
-import {Col, Row, Container, Button} from 'react-bootstrap';
+import {Col, Row, Container, Button, Alert} from 'react-bootstrap';
 import BlackCard from '../components/BlackCard.js';
 import WhiteCardStack from '../components/WhiteCardStack.js';
 import UserContextProvider from '../contexts/UserContext.js';
@@ -18,6 +18,9 @@ const [roundIsPlayed, setRoundIsPlayed] = useState(false);
 const [playedRound, updatePlayedRound] = useState([]);
 const [playerCount, setPlayerCount] = useState();
 const [cardZar, setCardZar] = useState(false);
+
+const [show, setShow] = useState(false);
+const [alertType, setAlertType] = useState("");
 
 return (
     <UserContext.Consumer>
@@ -48,6 +51,11 @@ props.Socket.on("push_gameobject", (gameObject) =>{
     console.log(playerHand);
 });
 
+props.Socket.on("show winner", (name) =>{
+    setAlertType(name);
+    setShow(true);
+  })
+
 
 
 
@@ -57,13 +65,28 @@ props.Socket.on("push_gameobject", (gameObject) =>{
 
     return (
         <Container fluid className="vh-100">
+            <div className="alterdiv">
+            {show
+                ? <Alert className="joinalert" variant="success" onClose={() => setShow(false)} dismissible>
+                <Alert.Heading>
+                    The winner is:
+                </Alert.Heading>
+                <center>
+                <h2>
+                  {alertType}
+                </h2>
+                </center>
+              </Alert>
+                :<div></div>
+            }
+            </div>
             <Row className='centerField'>
                 <Col><BlackCard title = {blackCard.Inhalt}/></Col>
                 <Col>
                     {roundIsPlayed && (playerCount >=2 ) && (
                      <Button disabled={!cardZar} className ="BTN color: black !important" variant ="outline-dark"
                      onClick={()=>{
-                            props.Socket.emit("pick winner", playedRound[1].player);
+                            props.Socket.emit("pick winner", playedRound[1].player, userRoom);
                             console.log("wurde gecklickt");
                      }}>
                     <WhiteCard reCards={playedRound[1].currWhiteCard}></WhiteCard>
@@ -75,7 +98,7 @@ props.Socket.on("push_gameobject", (gameObject) =>{
                     {roundIsPlayed && (playerCount  >= 3) && (
                     <Button disabled={!cardZar} className ="BTN color: black !important" variant ="outline-dark"
                           onClick={()=>{
-                            props.Socket.emit("pick winner", playedRound[2].player);
+                            props.Socket.emit("pick winner", playedRound[2].player, userRoom);
                             console.log("wurde gecklickt");
                      }}>
                     <WhiteCard reCards={playedRound[2].currWhiteCard}></WhiteCard>
@@ -86,9 +109,9 @@ props.Socket.on("push_gameobject", (gameObject) =>{
                 <Col>
                     {roundIsPlayed && (playerCount >= 4) && (
                     <Button disabled={!cardZar} className ="BTN color: black !important" variant ="outline-dark"
-                    onClick={()=>{
-                        props.Socket.emit("pick winner", playedRound[3].player);
-                        console.log("wurde gecklickt");
+                        onClick={()=>{
+                            props.Socket.emit("pick winner", playedRound[3].player, userRoom);
+                            console.log("wurde gecklickt");
                  }}>
                     <WhiteCard reCards={playedRound[3].currWhiteCard}></WhiteCard>
                     </Button>
@@ -97,9 +120,9 @@ props.Socket.on("push_gameobject", (gameObject) =>{
                 <Col>
                     {roundIsPlayed && (playerCount >= 5) && (
                     <Button disabled={!cardZar} className ="BTN color: black !important" variant ="outline-dark"
-                    onClick={()=>{
-                        props.Socket.emit("pick winner", playedRound[4].player);
-                        console.log("wurde gecklickt");
+                        onClick={()=>{
+                            props.Socket.emit("pick winner", playedRound[4].player, userRoom);
+                            console.log("wurde gecklickt");
                  }}>
                     <WhiteCard reCards={playedRound[4].currWhiteCard}></WhiteCard>
                     </Button>
