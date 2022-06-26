@@ -153,8 +153,13 @@ io.on("connection", (socket) => {
             io.in(placedcardsobject.id).emit("UpdateDisplayedWhiteCards", placedcardsobject.placedwhiteCards)
             console.log(placedcardsobject.players.length)
             console.log(placedcardsobject.placedwhiteCards)
+           
         }
     })
+    socket.on("pick winner", (name, room) => {
+        console.log(name, "is the winner");
+        io.in(room).emit("show winner", name);
+    } )
 });
 
 
