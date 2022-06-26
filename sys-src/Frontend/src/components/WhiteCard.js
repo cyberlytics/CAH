@@ -53,6 +53,14 @@ function WhiteCard(props) {
     }
   }
 
+  if (props.reCards != null){
+    {
+      var recards= (
+        <TextField Text={props.reCards} Socket = {props.Socket}></TextField>
+      )
+    }
+  }
+
   return (
     <div className="justify-content-center flex-column d-flex whitecard h-100">
       <Form>
@@ -65,6 +73,9 @@ function WhiteCard(props) {
         </div>
         <div className="justify-content-center flex-column d-flex">
           {card}
+        </div>
+        <div className ="justify-content-center flex-column d-flex">
+          {recards}
         </div>
       </Form>
     </div>
