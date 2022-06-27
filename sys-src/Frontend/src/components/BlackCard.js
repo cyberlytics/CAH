@@ -8,10 +8,8 @@ import {Col, Row, Container} from 'react-bootstrap'
 function BlackCard(props){
 
     return (
-        <div className="justify-content-center flex-column d-flex heightchanger blackdiv h-100">
-                    <p className="gametitle text-white">{props.title}</p>
-                    {//TODO: Ändere Size für BlackCard Inhalt für das GameField
-                    }
+        <div className={`  justify-content-center flex-column d-flex heightchanger blackdiv h-100`}>
+                    <p className={`${props.className} gametitle text-white`}>{props.title}</p>
         </div>
     )
 }
