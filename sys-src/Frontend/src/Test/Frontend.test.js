@@ -23,11 +23,7 @@ const container = document.createElement("div");
 // Create a root.
 const root = ReactDOMClient.createRoot(container);
 
-// Before
-unmountComponentAtNode(container);
 
-// After
-root.unmount();
 
 
 it("renders with or without a name", () => {
