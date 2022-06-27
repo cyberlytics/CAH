@@ -6,6 +6,7 @@ import { Col, Row, Container } from "react-bootstrap";
 import BlackCard from "../components/BlackCard.js";
 import WhiteCard from "../components/WhiteCard.js";
 import { useState, useEffect } from "react";
+
 import UserContextProvider from "../contexts/UserContext.js";
 import { UserContext } from "../contexts/UserContext";
 
