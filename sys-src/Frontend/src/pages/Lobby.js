@@ -6,6 +6,7 @@ import { Col, Row, Container } from "react-bootstrap";
 import BlackCard from "../components/BlackCard.js";
 import WhiteCard from "../components/WhiteCard.js";
 import { useState, useEffect } from "react";
+
 import UserContextProvider from "../contexts/UserContext.js";
 import { UserContext } from "../contexts/UserContext";
 
@@ -59,10 +60,10 @@ function Lobby(props) {
           <Container fluid className=" vh-100">
             <Row className="vh-100">
               <Col>
-                <BlackCard />
+                <BlackCard className="lobbyblackcard text-center" title='Lobby'/>
               </Col>
               <Col>
-                <WhiteCard Socket={props.Socket} TextFields={playerObject} />
+                <WhiteCard title="Players" Socket={props.Socket} TextFields={playerObject} />
               </Col>
               <Col>
                 <WhiteCard />

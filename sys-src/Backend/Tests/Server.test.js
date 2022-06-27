@@ -147,26 +147,34 @@ test("test send white card",()=>{
             expect(arg).toBeDefined();
         })
     })
-    test("lobby black cards",()=>{
-const ArrayBlack=new Array('eins','zwei');
-        const ArrayWhite=new Array('eins','zwei');
-        lobby.addGame(user,3,RoomId,ArrayBlack,ArrayWhite);
-        expect(lobby.blackCard(RoomId)).toBeDefined();
-    })
+
     test("lobby white cards",()=>{
+        //ändern für add placed card
         const ArrayBlack=new Array('eins','zwei');
         const ArrayWhite=new Array('eins','zwei');
         lobby.addGame(user,3,RoomId,ArrayBlack,ArrayWhite);
-        expect(lobby.whiteCard(RoomId)).toBeDefined();
+   //     expect(lobby.whiteCard(RoomId)).toBeDefined();
     })
+    test("lobby get game",()=>{
+        expect(lobby.getGame(3)).toBeUndefined();
+    })
+    //get game für definiertes gameobjekt
+    test("lobby get game defined",()=>{
+        const ArrayBlack=new Array('eins','zwei');
+        const ArrayWhite=new Array('eins','zwei');
+        lobby.addGame(user,3,RoomId,ArrayBlack,ArrayWhite);
+        expect(lobby.getGame(3)).toBeDefined();
+    })
+
     test("test server new round",()=>{
         clientSocket.emit("new_round",RoomId);
         clientSocket.on('push_new_round',(arg)=>{
             expect(arg).toBeDefined();
         })
     })
+
   test("lobby new round",()=>{
-      expect(lobby.newRound(RoomId)).toBeDefined();
+      expect(lobby.newRound(RoomId)).not.toBeDefined();
   })
 
     test("test black Card",()=>{
