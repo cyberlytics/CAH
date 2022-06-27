@@ -62,8 +62,11 @@ function WhiteCard(props) {
   }
 
   return (
-    <div className="justify-content-center flex-column d-flex whitecard h-100">
+    <div className={`justify-content-center ${props.className} flex-column d-flex whitecard h-100`}>
       <Form>
+        <div className="justify-content-center text-center fs-1 flex-column d-flex">
+          {props.title}
+        </div>
         <div className="justify-content-center mb-5">{inputs}</div>
         <div className="justify-content-center flex-column d-flex">
           {navbuttons}
