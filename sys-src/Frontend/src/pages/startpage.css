@@ -32,12 +32,22 @@
         background-repeat: no-repeat;
         background-size: 80%;   
     }
+
+    .coverblackcard{
+        font-size: 5vw !important;    
+    }
+
+
+    .lobbyblackcard{
+        font-size: 5vw !important;
+    }
     
     .whitecard{
         background-image: url(../imgs/whitecard.png);
         background-position: center;
         background-repeat: no-repeat;
         background-size: 50%;
+        padding: 10%;
         
        
     }
@@ -73,13 +83,21 @@
         background-repeat: no-repeat;
         background-size: 110%;   
     }
+
+    .coverblackcard{
+        font-size: 7vw !important;
+    }
+
+    .lobbyblackcard{
+        font-size: 5vw !important;
+    }
+    
     
     .whitecard{
         background-image: url(../imgs/whitecard.png);
         background-position: center;
         background-repeat: no-repeat;
         background-size:80%;
-        
        
     }
 }

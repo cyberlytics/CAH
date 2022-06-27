@@ -60,10 +60,10 @@ function Lobby(props) {
           <Container fluid className=" vh-100">
             <Row className="vh-100">
               <Col>
-                <BlackCard />
+                <BlackCard className="lobbyblackcard text-center" title='Lobby'/>
               </Col>
               <Col>
-                <WhiteCard Socket={props.Socket} TextFields={playerObject} />
+                <WhiteCard title="Players" Socket={props.Socket} TextFields={playerObject} />
               </Col>
               <Col>
                 <WhiteCard />
