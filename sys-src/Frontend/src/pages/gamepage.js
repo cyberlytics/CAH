@@ -89,7 +89,7 @@ props.Socket.on("show winner", (name) =>{
                             props.Socket.emit("pick winner", playedRound[1].player, userRoom);
                             console.log("wurde gecklickt");
                      }}>
-                    <WhiteCard reCards={playedRound[1].currWhiteCard}></WhiteCard>
+                    <WhiteCard className="px-4" reCards={playedRound[1].currWhiteCard}></WhiteCard>
                     </Button>
                     )}
                 </Col>
@@ -101,7 +101,7 @@ props.Socket.on("show winner", (name) =>{
                             props.Socket.emit("pick winner", playedRound[2].player, userRoom);
                             console.log("wurde gecklickt");
                      }}>
-                    <WhiteCard reCards={playedRound[2].currWhiteCard}></WhiteCard>
+                    <WhiteCard className="px-4" reCards={playedRound[2].currWhiteCard}></WhiteCard>
                      </Button>
                     )}
                 </Col>
@@ -113,7 +113,7 @@ props.Socket.on("show winner", (name) =>{
                             props.Socket.emit("pick winner", playedRound[3].player, userRoom);
                             console.log("wurde gecklickt");
                  }}>
-                    <WhiteCard reCards={playedRound[3].currWhiteCard}></WhiteCard>
+                    <WhiteCard className="px-4" reCards={playedRound[3].currWhiteCard}></WhiteCard>
                     </Button>
                     )}
                 </Col>
@@ -124,7 +124,7 @@ props.Socket.on("show winner", (name) =>{
                             props.Socket.emit("pick winner", playedRound[4].player, userRoom);
                             console.log("wurde gecklickt");
                  }}>
-                    <WhiteCard reCards={playedRound[4].currWhiteCard}></WhiteCard>
+                    <WhiteCard className="px-4" reCards={playedRound[4].currWhiteCard}></WhiteCard>
                     </Button>
                     )}
                 </Col>
@@ -136,7 +136,7 @@ props.Socket.on("show winner", (name) =>{
                     onClick={() => { 
                         props.Socket.emit("choose Card", userName,playerHand[0].Inhalt)
                         console.log(playerHand[0].Inhalt)}}>
-                        <WhiteCard Cards={playerHand[0]}/>
+                        <WhiteCard className="px-4" Cards={playerHand[0]}/>
                     </Button>
                 </Col>
                 <Col>
@@ -144,7 +144,7 @@ props.Socket.on("show winner", (name) =>{
                     onClick={() => { 
                         props.Socket.emit("choose Card", userName,playerHand[1].Inhalt)
                         console.log(playerHand[1].Inhalt)}}>
-                        <WhiteCard Cards={playerHand[1]}/>
+                        <WhiteCard className="px-4" Cards={playerHand[1]}/>
                     </Button>
                 </Col>
                 <Col>
@@ -152,7 +152,7 @@ props.Socket.on("show winner", (name) =>{
                     onClick={() => { 
                         props.Socket.emit("choose Card", userName,playerHand[2].Inhalt)
                         console.log(playerHand[2].Inhalt)}}>
-                        <WhiteCard Cards={playerHand[2]}/>
+                        <WhiteCard className="px-4" Cards={playerHand[2]}/>
                     </Button>
                     
                 </Col>
@@ -161,7 +161,7 @@ props.Socket.on("show winner", (name) =>{
                     onClick={() => { 
                         props.Socket.emit("choose Card", userName,playerHand[3].Inhalt)
                         console.log(playerHand[3].Inhalt)}}>
-                        <WhiteCard Cards={playerHand[3]}/>
+                        <WhiteCard className="px-4" Cards={playerHand[3]}/>
                     </Button>
                    
                     </Col>
@@ -171,7 +171,7 @@ props.Socket.on("show winner", (name) =>{
                     onClick={() => { 
                         props.Socket.emit("choose Card", userName,playerHand[4].Inhalt)
                         console.log(playerHand[4].Inhalt)}}>
-                        <WhiteCard Cards={playerHand[4]}/>
+                        <WhiteCard className="px-4" Cards={playerHand[4]}/>
                     </Button>
                 </Col>
           </Row>

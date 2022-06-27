@@ -65,7 +65,7 @@ function Startpage(props){
             </div>
             <Row className="vh-100">
                 <Col>
-                    <BlackCard title='Cards &#32; Against &#32; Humanity'/>
+                    <BlackCard className="coverblackcard" title='Cards &#32; Against &#32; Humanity'/>
                 </Col>
                 <Col>
                         <WhiteCardStack Socket={props.Socket} NavigateButtons={navbuttons} Inputs={inputs}/>
